@@ -1,0 +1,12 @@
+//FOCUS A INPUT LOGIN
+.form-control:focus {
+    border-color: #fc5c04;
+    /* Cambia este color al que prefieras */
+    box-shadow: 0 0 0 0.2rem rgba(214, 69, 2, 0.459);
+    /* Opcional: añade un efecto de sombra */
+}
+
+.card-body{
+    box-shadow: 1px 5px 24px 0 rgba(68, 68, 68, 0.8);
+    /* Opcional: añade un efecto de sombra */
+}
