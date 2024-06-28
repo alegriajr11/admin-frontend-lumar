@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  //RUTA SECCION
+  seccionUrl: 'http://localhost:8080/seccion',
+
+  //RUTA CATEGORIA
+  categoriaUrl: 'http://localhost:8080/categoria',
+
+  //RUTA SUBCATEGORIA
+  subcategoriaUrl: 'http://localhost:8080/subcategoria'
 };
 
 /*

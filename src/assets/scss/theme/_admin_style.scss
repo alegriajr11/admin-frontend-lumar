@@ -110,6 +110,29 @@ del {
     transform: rotate(-45deg) scale(1, 1);
   }
 }
+
+//FOCUS A INPUT
+.form-control:focus {
+  border-color: #fc5c04;
+  /* Cambia este color al que prefieras */
+}
+
+.form-select:focus {
+  border-color: #fc5c04;
+  /* Cambia este color al que prefieras */
+  box-shadow: 0 0 0 0.2rem rgba(214, 69, 2, 0.459);
+  /* Opcional: añade un efecto de sombra */
+}
+
+//COLOR DE BORDE A INPUTS Y SELECT
+.form-select{
+  border-color: $dark-gray;
+}
+.form-control{
+  border-color: $dark-gray;
+}
+
+
 .radio_animated {
   position: relative;
   margin: 0 1rem 0 0;

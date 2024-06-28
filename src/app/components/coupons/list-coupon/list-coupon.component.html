@@ -4,19 +4,19 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Products Category</h5>
+                    <h5>Lista de Cupones</h5>
                 </div>
                 <div class="card-body">
                     <div class="custom-datatable">
-                        <button class="btn btn-primary me-1 mb-3" style="float: right;">Delete</button>
+                        <button class="btn btn-primary me-1 mb-3" style="float: right;">Eliminar</button>
                         <div class="clearfix"></div>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
-                                    <th scope="col" sortable="code" (sort)="onSort($event)">Code</th>
-                                    <th scope="col" sortable="discount" (sort)="onSort($event)">Discoount</th>
-                                    <th scope="col" sortable="status" (sort)="onSort($event)">Status</th>
+                                    <th scope="col" sortable="title" (sort)="onSort($event)">Titulo</th>
+                                    <th scope="col" sortable="code" (sort)="onSort($event)">Código</th>
+                                    <th scope="col" sortable="discount" (sort)="onSort($event)">Descuento</th>
+                                    <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -36,9 +36,9 @@
                         </table>
                         <div class="d-flex justify-content-center p-2">
                             <ngb-pagination
-                              [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
+                            [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
                             </ngb-pagination>
-                          </div>
+                        </div>
                     </div>
                 </div>
             </div>

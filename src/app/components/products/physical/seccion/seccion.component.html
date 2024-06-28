@@ -46,14 +46,14 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col" sortable="product_name" (sort)="onSort($event)">Nombre Sección</th>
-                                        <th scope="col" sortable="population" (sort)="onSort($event)">Acciones</th>
+                                        <th scope="col" sortable="product_name">Nombre Sección</th>
+                                        <th scope="col" sortable="population">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor='let catgory of tableItem$ | async'>
-                                        <th scope="row">{{ catgory.id }}</th>
-                                        <td>{{ catgory.product_name }}</td>
+                                    <tr *ngFor="let seccion of seccionDto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index ">
+                                        <th scope="row">{{calcularIDGlobal(i, page, 10)}}</th>
+                                        <td>{{ seccion.secc_nombre }}</td>
                                         <td>
                                             <a href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
                                             <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
@@ -61,11 +61,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-content-center p-2">
-                                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                                    [pageSize]="service.pageSize">
-                                </ngb-pagination>
-                            </div>
+                            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="seccionDto.length"></ngb-pagination>
                         </div>
                     </div>
                 </div>

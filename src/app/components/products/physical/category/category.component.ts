@@ -6,6 +6,8 @@ import { DecimalPipe } from '@angular/common';
 import { TableService } from 'src/app/shared/service/table.service';
 import { SortEvent } from 'src/app/shared/directives/shorting.directive';
 import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { CategoriaService } from 'src/app/shared/service/productos/categoria/categoria.service';
+import { CategoriaDto } from 'src/app/models/categoria/categoria.dto';
 
 @Component({
   selector: 'app-category',
@@ -18,30 +20,22 @@ import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader
 export class CategoryComponent implements OnInit {
   public closeResult: string;
 
+  categoriaDto: CategoriaDto[]
+  //LISTA VACIA
+  listaVacia: any = undefined
+  public page = 1
+  public pageSize = 10
+
   searchText;
-  tableItem$: Observable<Category[]>;
-  total$: Observable<number>;
+
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public service: TableService, private modalService: NgbModal) {
-    this.tableItem$ = service.tableItem$;
-    this.total$ = service.total$;
-    this.service.setUserData(CATEGORY)
-  }
+  constructor(
+    private modalService: NgbModal,
+    private categoriaService: CategoriaService
+  ) { }
 
-  onSort({ column, direction }) {
-    // resetting other headers
-    this.headers.forEach((header) => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
-
-  }
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -63,6 +57,26 @@ export class CategoryComponent implements OnInit {
 
 
   ngOnInit() {
+    this.listarCategorias();
+  }
+
+  //Solicitud listar categorias
+  listarCategorias(): void {
+    this.categoriaService.listaCategorias().subscribe(
+      data => {
+        this.categoriaDto = data
+        this.listaVacia = undefined
+
+      },
+      err => {
+        this.listaVacia = err.error.message
+      }
+    )
+  }
+
+  // Método para calcular el ID global
+  calcularIDGlobal(index: number, currentPage: number, itemsPerPage: number): number {
+    return index + 1 + (currentPage - 1) * itemsPerPage;
   }
 
 }

@@ -12,15 +12,15 @@ const routes: Routes = [
         component: ListCouponComponent,
         data: {
           title: "Lista de Cupones",
-          breadcrumb: "List Coupons"
+          breadcrumb: "Lista de Cupones"
         }
       },
       {
         path: 'create-coupons',
         component: CreateCouponComponent,
         data: {
-          title: "Create Coupon",
-          breadcrumb: "Create Coupons"
+          title: "Crear Cupón",
+          breadcrumb: "Crear Cupón"
         }
       }
     ]

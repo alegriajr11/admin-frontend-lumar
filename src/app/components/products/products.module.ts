@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule, NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { CategoryComponent } from './physical/category/category.component';
@@ -17,7 +17,9 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 // search module
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SeccionComponent } from './physical/seccion/seccion.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { SeccionComponent } from './physical/seccion/seccion.component';
     GalleryModule,
     CKEditorModule,
     NgxDropzoneModule,
-    SharedModule
+    SharedModule,
+    NgxPaginationModule,
+    HttpClientModule
   ],
   exports: [SubCategoryComponent],
   bootstrap: [SubCategoryComponent],

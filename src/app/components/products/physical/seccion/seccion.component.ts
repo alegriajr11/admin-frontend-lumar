@@ -1,11 +1,13 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Category, CATEGORY } from '../../../../shared/tables/category';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { TableService } from 'src/app/shared/service/table.service';
-import { SortEvent } from 'src/app/shared/directives/shorting.directive';
 import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
+import { SeccionDto } from 'src/app/models/seccion/seccion.dto';
+import { SeccionService } from 'src/app/shared/service/productos/seccion/seccion.service';
+
 
 @Component({
   selector: 'app-seccion',
@@ -17,30 +19,25 @@ export class SeccionComponent {
 
   public closeResult: string;
 
+  //DTO SECCION
+  seccionDto: SeccionDto[];
+  public page = 1
+  public pageSize = 10
+
+
+  //LISTA VACIA
+  listaVacia: any = undefined
+
   searchText;
-  tableItem$: Observable<Category[]>;
-  total$: Observable<number>;
+
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  constructor(public service: TableService, private modalService: NgbModal) {
-    this.tableItem$ = service.tableItem$;
-    this.total$ = service.total$;
-    this.service.setUserData(CATEGORY)
-  }
+  constructor(
+    private modalService: NgbModal,
+    private seccionService: SeccionService,
+  ) { }
 
-  onSort({ column, direction }) {
-    // resetting other headers
-    this.headers.forEach((header) => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
-    });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
-
-  }
 
   open(content) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
@@ -62,6 +59,26 @@ export class SeccionComponent {
 
 
   ngOnInit() {
+    this.listarSeccion();
   }
 
+
+  //Peticion listar secciones
+  listarSeccion(): void {
+    this.seccionService.listaSeccion().subscribe(
+      data => {
+        this.seccionDto = data
+        this.listaVacia = undefined
+
+      },
+      err => {
+        this.listaVacia = err.error.message
+      }
+    )
+  }
+
+  // Método para calcular el ID global
+  calcularIDGlobal(index: number, currentPage: number, itemsPerPage: number): number {
+    return index + 1 + (currentPage - 1) * itemsPerPage;
+  }
 }

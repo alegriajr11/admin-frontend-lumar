@@ -18,6 +18,8 @@ import { InvoiceModule } from './components/invoice/invoice.module';
 import { SettingModule } from './components/setting/setting.module';;
 import { ReportsModule } from './components/reports/reports.module';
 import { AuthModule } from './components/auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,7 @@ import { AuthModule } from './components/auth/auth.module';
   ],
   imports: [
     BrowserAnimationsModule,
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     AppRoutingModule,
     DashboardModule,
     InvoiceModule,
@@ -39,7 +41,9 @@ import { AuthModule } from './components/auth/auth.module';
     PagesModule,
     MenusModule,
     UsersModule,
-    AgGridModule
+    AgGridModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
