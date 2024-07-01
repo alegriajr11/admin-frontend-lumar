@@ -1,5 +1,7 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { UntypedFormGroup } from '@angular/forms';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
@@ -18,6 +20,9 @@ export class ListCouponComponent implements OnInit {
   public tableItem$: Observable<ListCouponsDB[]>;
   public searchText;
   total$: Observable<number>;
+
+
+  public active = 1;
 
   constructor(public service: TableService) {
     this.tableItem$ = service.tableItem$;

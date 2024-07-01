@@ -13,8 +13,18 @@ export class CategoriaService {
 
   constructor(private httpClient: HttpClient) { }
 
-  //SOLICITUD LISTAR SECCIONES
-  public listaCategorias(): Observable<CategoriaDto[]>{
+  //SOLICITUD LISTAR CATEGORIAS
+  public listaCategorias(): Observable<CategoriaDto[]> {
     return this.httpClient.get<CategoriaDto[]>(this.categoriaUrl)
+  }
+
+  //SOLICITUD CREAR CATEGORIA
+  public createCategoria(categoriaDto: CategoriaDto): Observable<any> {
+    return this.httpClient.post<any>(`${this.categoriaUrl}`, categoriaDto)
+  }
+
+  //SOLICITUD ELIMINAR CATEGORIA
+  public eliminarCategoria(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.categoriaUrl}${id}`);
   }
 }

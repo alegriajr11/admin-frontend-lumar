@@ -14,7 +14,17 @@ export class SeccionService {
   constructor(private httpClient: HttpClient) { }
 
   //SOLICITUD LISTAR SECCIONES
-  public listaSeccion(): Observable<SeccionDto[]>{
+  public listaSeccion(): Observable<SeccionDto[]> {
     return this.httpClient.get<SeccionDto[]>(this.seccionUrl)
+  }
+
+  //SOLICITUD ELIMINAR SECCION
+  public eliminarSeccion(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.seccionUrl}${id}`);
+  }
+
+  //SOLICITUD CREAR SECCION
+  public crearSeccion(seccion: SeccionDto): Observable<any> {
+    return this.httpClient.post<any>(`${this.seccionUrl}`, seccion)
   }
 }

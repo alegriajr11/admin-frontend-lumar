@@ -83,7 +83,7 @@
                                 <app-feather-icons [icon]="'settings'"></app-feather-icons>Configuración
                             </a></li>
                         <li>
-                            <a [routerLink]="'/auth/login'">
+                            <a (click)="logOut()">
                                 <app-feather-icons [icon]="'log-out'"></app-feather-icons>Cerrar Sesión
                             </a>
                         </li>

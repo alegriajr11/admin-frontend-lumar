@@ -13,6 +13,8 @@ import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.componen
 import { RightSidebarComponent } from './components/right-sidebar/right-sidebar.component';
 import { TableService } from './service/table.service';
 import { NgbdSortableHeader } from './directives/NgbdSortableHeader';
+import { TokenService } from './service/token.service';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,7 @@ import { NgbdSortableHeader } from './directives/NgbdSortableHeader';
     CommonModule,
     RouterModule
   ],
-  providers: [NavService, TableService, WINDOW_PROVIDERS],
+  providers: [NavService, TableService, TokenService, AuthService, WINDOW_PROVIDERS],
   exports: [FeatherIconsComponent, ToggleFullscreenDirective,NgbdSortableHeader]
 })
 export class SharedModule { }

@@ -6,13 +6,18 @@ export const environment = {
   production: false,
 
   //RUTA SECCION
-  seccionUrl: 'http://localhost:8080/seccion',
+  seccionUrl: 'http://localhost:8080/seccion/',
 
   //RUTA CATEGORIA
-  categoriaUrl: 'http://localhost:8080/categoria',
+  categoriaUrl: 'http://localhost:8080/categoria/',
 
   //RUTA SUBCATEGORIA
-  subcategoriaUrl: 'http://localhost:8080/subcategoria'
+  subcategoriaUrl: 'http://localhost:8080/subcategoria/',
+
+
+  //RUTA AUTENTICACIÓN
+  authURL: 'http://localhost:8080/auth/',
+  restablecerContraseña: 'http://localhost:8080/auth/request-reset-password/',
 };
 
 /*

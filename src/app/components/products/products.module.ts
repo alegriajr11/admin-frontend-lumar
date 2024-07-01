@@ -20,6 +20,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SeccionComponent } from './physical/seccion/seccion.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     NgxDropzoneModule,
     SharedModule,
     NgxPaginationModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   exports: [SubCategoryComponent],
   bootstrap: [SubCategoryComponent],

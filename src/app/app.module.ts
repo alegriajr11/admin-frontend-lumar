@@ -18,8 +18,9 @@ import { InvoiceModule } from './components/invoice/invoice.module';
 import { SettingModule } from './components/setting/setting.module';;
 import { ReportsModule } from './components/reports/reports.module';
 import { AuthModule } from './components/auth/auth.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { interceptorProvider } from './interceptors/usuario.interceptor';
 
 @NgModule({
   declarations: [
@@ -43,9 +44,9 @@ import { FormsModule } from '@angular/forms';
     UsersModule,
     AgGridModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [interceptorProvider], //Provider para autenticacion de usuario
   bootstrap: [AppComponent]
 })
 export class AppModule { }
