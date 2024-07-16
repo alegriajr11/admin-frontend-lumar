@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2018 (64 Bit Versión de evaluación) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="78px" height="78px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 73.83 74.01"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#373435;stroke-width:0.22;stroke-miterlimit:22.9256;stroke-opacity:0.600000}
+    .str1 {stroke:#373435;stroke-width:0.22;stroke-miterlimit:22.9256}
+    .str3 {stroke:black;stroke-width:0.22;stroke-miterlimit:22.9256}
+    .str2 {stroke:#FE5A00;stroke-width:0.22;stroke-miterlimit:22.9256}
+    .fil1 {fill:black}
+    .fil2 {fill:#FE5A00}
+    .fil0 {fill:black;fill-opacity:0.600000}
+   ]]>
+  </style>
+ </defs>
+ <g id="Capa_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0 str0" d="M36.91 0.11c20.33,0 36.8,16.52 36.8,36.9 0,20.37 -16.47,36.89 -36.8,36.89 -20.32,0 -36.8,-16.52 -36.8,-36.89 0,-20.38 16.48,-36.9 36.8,-36.9z"/>
+  <ellipse class="fil1 str1" cx="36.81" cy="36.79" rx="36.01" ry="35.76"/>
+  <path class="fil2 str2" d="M15.34 30.19c1.82,-2.65 8.51,-0.82 13.75,-2.19l5 -0.84c6.96,-1.48 1.07,6.1 2.32,13.05l11.12 -4.21 -1.68 -12.18c-0.17,-4.64 -1.48,-9.02 -3.28,-13.16 -1.47,-3.18 -3.28,-6.21 -5.72,-8.36 -2.3,-1.08 -4.81,-1.07 -7.07,0.2 -4.51,2.82 -7.73,5.74 -11.01,9.35 -3.34,3.08 -6.28,6.02 -8.91,9.48 -2.52,2.97 -4.65,6.23 -6.12,9.53 -1.48,3.29 -2.31,6.61 -2.24,9.68 1.72,4.61 10.5,6.18 12.12,0.75 -0.08,-4.44 -0.07,-7.75 1.72,-11.1z"/>
+  <path class="fil1 str3" d="M21.98 21.77c4.33,-1.22 9.01,-1.45 13.1,-1.58 1.84,-0.22 2.94,-0.44 2.37,-2.58 -0.91,-2.23 -1.87,-4.29 -3.49,-6.44 -1.74,-1.73 -3.14,-1.85 -5.68,-0.04 -3.15,2.45 -5.66,4.84 -7.83,8.08 -1.62,2.8 -1.67,3 1.53,2.56z"/>
+  <path class="fil2 str2" d="M54.08 64.22c4.52,-1.23 8.76,-4.01 9.59,-6.22 0.02,-0.02 0.04,-0.05 0.08,-0.1 0.27,-0.41 0.51,-1.02 0.39,-1.51 -0.1,-0.41 -0.14,-0.8 -0.5,-1.12 -5.08,-4.5 -12.87,3.93 -19.48,2.96 -2.75,-0.4 -4.12,-1.24 -2.9,-6.37 0.31,-1.29 4.12,-12.4 13.46,-25.25 2.2,-2.63 -1.53,-9.54 -10.12,-3.89 -4.55,5.84 -8.59,16.51 -13.39,28.64 -2.74,13.83 0.41,16.14 22.87,12.86z"/>
+ </g>
+</svg>

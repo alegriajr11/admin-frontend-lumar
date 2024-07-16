@@ -53,6 +53,7 @@ export class TokenService {
     return usu_nombreUsuario;
   }
 
+  //OBTENER EL NOMBRE DEL USAURIO
   getNombre(): string {
     if (!this.isLogged()) {
       return null;
@@ -65,12 +66,24 @@ export class TokenService {
     return usu_nombre;
   }
 
+  //OBTENER EL ID DEL USUARIO LOGUEADO
+  getUserId(): number {
+    if (!this.isLogged()) {
+      return null;
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    const usu_id = valuesJson.usu_id;
+    return usu_id;
+  }
+
   getRole() {
     const token = this.getToken();
     const payload = token.split('.')[1];
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
-    const usu_nombreUsuario = valuesJson.usu_nombreUsuario;
     const roles = valuesJson.roles;
     this.roleAs = localStorage.getItem(roles);
     return this.roleAs;
@@ -84,13 +97,11 @@ export class TokenService {
     const payload = token.split('.')[1];
     const values = atob(payload);
     const valuesJson = JSON.parse(values);
-    const usu_nombreUsuario = valuesJson.usu_nombreUsuario;
-    const usu_estado = valuesJson.usu_estado;
-    const roles = valuesJson.usu_roles;
-    if (roles.indexOf('admin') < 0) {
-      return false;
+    const rol = valuesJson.usu_rol;
+    if (rol == 'Administrador') {
+      return true;
     }
-    return true;
+    return false;
   }
 
   logOut(): void {

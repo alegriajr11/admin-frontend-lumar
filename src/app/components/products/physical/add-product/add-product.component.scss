@@ -1,0 +1,58 @@
+/*ESTILOS AL INPUT*/
+.file-upload-container {
+    border: 1px solid #d2d6de;
+    border-radius: 5px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.file-upload-button {
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+
+.file-upload-button:hover {
+    background-color: #0056b3;
+    cursor: pointer;
+}
+
+.file-upload-instructions {
+    font-size: small;
+    color: #555;
+}
+
+
+//ESTILOS PARA BOTON ELIMINAR FOTO
+.eliminar-foto {
+    top: -5px;
+    right: -5px;
+    background-color: transparent !important;
+    border: none;
+    color: red;
+    font-size: 1rem;
+}
+
+
+
+//ESTILOS PARA FOR AGREGAR TALLAS
+.form-group.row.align-items-center {
+    display: flex;
+    align-items: center;
+}
+
+.form-group.row.align-items-center .col-md-3,
+.form-group.row.align-items-center .col-md-6 {
+    display: flex;
+    align-items: center;
+}
+
+.form-group.row.align-items-center .col-md-3 {
+    justify-content: flex-end;
+}
+

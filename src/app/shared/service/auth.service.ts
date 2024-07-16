@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TokenDto } from 'src/app/models/token.dto';
+import { ChangePasswordDto } from 'src/app/models/usuario/change-password.dto';
 import { LoginUsuarioDto } from 'src/app/models/usuario/login-usuario.dto';
+import { UsuarioEmailDto } from 'src/app/models/usuario/usuario-email.dto';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,4 +26,13 @@ export class AuthService {
     return this.httpClient.post<any>(this.authURL + 'refresh', dto);
   }
 
+  //Solicitud enviar codigo de verificacion
+  requestPassword(usuario: UsuarioEmailDto): Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'sendEmail', usuario)
+  }
+
+  //Solicitud cambiar contraseña
+  changePassword(resetPasssword: ChangePasswordDto) {
+    return this.httpClient.post<any>(this.authURL + 'reset-password', resetPasssword)
+  }
 }

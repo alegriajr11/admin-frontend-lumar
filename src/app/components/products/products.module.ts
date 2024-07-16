@@ -21,10 +21,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SeccionComponent } from './physical/seccion/seccion.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { ColorPickerComponent } from './color-picker/color-picker.component';
 
 
 @NgModule({
-  declarations: [SeccionComponent, CategoryComponent, SubCategoryComponent, ProductListComponent, AddProductComponent, ProductDetailComponent
+  declarations: [ColorPickerComponent,SeccionComponent, CategoryComponent, SubCategoryComponent, ProductListComponent, AddProductComponent, ProductDetailComponent
   ],
   imports: [
     CommonModule,

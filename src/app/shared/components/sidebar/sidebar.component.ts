@@ -1,6 +1,7 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavService, Menu } from '../../service/nav.service';
+import { TokenService } from '../../service/token.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,10 +14,18 @@ export class SidebarComponent {
   public menuItems: Menu[];
   public url: any;
   public fileurl: any;
-  public nombre_usuario: string = "Samir Alegria JR.";
-  public rol_usuario: string = "Administrador";
+  public nombre_usuario: string;
+  public rol_usuario: string;
 
-  constructor(private router: Router, public navServices: NavService) {
+  //ROLES BOOL
+  isAdmin: boolean;
+
+  constructor(
+    private router: Router, 
+    public navServices: NavService,
+    private tokenService: TokenService
+
+  ) {
     this.navServices.items.subscribe(menuItems => {
       this.menuItems = menuItems
       this.router.events.subscribe((event) => {
@@ -38,6 +47,15 @@ export class SidebarComponent {
         }
       })
     })
+  }
+
+  ngOnInit(): void{
+    //Obtener el nombre del usuario logueado
+    this.nombre_usuario = this.tokenService.getNombre();
+    this.isAdmin = this.tokenService.isAdmin();
+
+    //SOLICITAR EL NOMBRE DE USUARIO
+    this.mostrarRoles();
   }
 
   // Active Nave state
@@ -92,4 +110,9 @@ export class SidebarComponent {
     }
   }
 
+  mostrarRoles(): void{
+    if(this.isAdmin = this.tokenService.isAdmin()){
+      this.rol_usuario = 'Administrador';
+    }
+  }
 }

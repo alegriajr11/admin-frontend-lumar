@@ -8,10 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SharedModule } from '../../shared/shared.module';
+import { CodeVerificationComponent } from './code-verification/code-verification.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, CodeVerificationComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,
@@ -19,7 +21,8 @@ import { SharedModule } from '../../shared/shared.module';
     CarouselModule,
     SharedModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot()
   ]
 })
 export class AuthModule { }

@@ -27,4 +27,10 @@ export class CategoriaService {
   public eliminarCategoria(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.categoriaUrl}${id}`);
   }
+
+  //SOLICITUD LISTAR CATEGORIAS POR SECCION
+  public listaCategoriasBySeccion(secc_id: number): Observable<CategoriaDto[]> {
+    return this.httpClient.get<CategoriaDto[]>(this.categoriaUrl + `seccion/${secc_id}`)
+  }
+
 }

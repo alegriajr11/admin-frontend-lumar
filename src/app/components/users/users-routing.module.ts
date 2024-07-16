@@ -11,16 +11,16 @@ const routes: Routes = [
         path: 'list-user',
         component: ListUserComponent,
         data: {
-          title: "User List",
-          breadcrumb: "User List"
+          title: "Lista Usuarios",
+          breadcrumb: "Lista de Usuarios"
         }
       },
       {
         path: 'create-user',
         component: CreateUserComponent,
         data: {
-          title: "Create User",
-          breadcrumb: "Create User"
+          title: "Crear Usuario",
+          breadcrumb: "Crear Usuario"
         }
       }
     ]

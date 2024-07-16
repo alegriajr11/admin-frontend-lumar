@@ -21,6 +21,8 @@ import { AuthModule } from './components/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { interceptorProvider } from './interceptors/usuario.interceptor';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
+import { LoadingInterceptor } from './interceptors/loading.interceptor';
 
 @NgModule({
   declarations: [
@@ -45,8 +47,9 @@ import { interceptorProvider } from './interceptors/usuario.interceptor';
     AgGridModule,
     FormsModule,
     HttpClientModule,
+    NgxUiLoaderModule
   ],
-  providers: [interceptorProvider], //Provider para autenticacion de usuario
+  providers: [interceptorProvider, { provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

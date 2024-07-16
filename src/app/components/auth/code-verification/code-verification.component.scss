@@ -1,0 +1,17 @@
+label {
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+
+h2 {
+    text-align: center !important;
+}
+
+/* Eliminar flechas en Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

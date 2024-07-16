@@ -8,8 +8,8 @@ const routes: Routes = [
     path: '',
     component: InvoiceComponent,
     data: {
-      title: "Invoice",
-      breadcrumb: "Invoice"
+      title: "Pedidos",
+      breadcrumb: "Lista de Pedidos"
     }
   },
 ];

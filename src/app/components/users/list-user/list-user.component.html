@@ -2,50 +2,53 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
-            <h5>User Details</h5>
+            <h5>Detalles de Usuarios</h5>
         </div>
         <div class="card-body">
             <div class="btn-popup pull-right">
-                <a class="btn btn-primary" [routerLink]="'/users/create-user'">Create User</a>
+                <a class="btn btn-primary" [routerLink]="'/users/create-user'">Crear Usuario</a>
             </div>
             <div id="batchDelete" class="category-table custom-datatable transcation-datatable user-image">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped table-hover">
                         <thead>
                             <tr>
-                                <th scope="col" >Actions</th>
-                                <th scope="col" sortable="avatar" (sort)="onSort($event)">Avtar</th>
-                                <th scope="col" sortable="fName" (sort)="onSort($event)">First Name</th>
-                                <th scope="col" sortable="lName" (sort)="onSort($event)">Last Name</th>
-                                <th scope="col" sortable="email" (sort)="onSort($event)">Email</th>
-                                <th scope="col" sortable="last_login" (sort)="onSort($event)">Last Login</th>
-                                <th scope="col" sortable="role" (sort)="onSort($event)">Role</th>
+                                <th scope="col">Avatar</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col">Identificación</th>
+                                <th scope="col">Nombres</th>
+                                <th scope="col">Apellidos</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Creado</th>
+                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let item of tableItem$ | async ">
+                            <tr *ngFor="let usuario of usuarioDto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index ">
+                                <td scope="row">
+                                    <img class="rounded-image" [src]="getUserImageUrl(usuario.usu_imagen)" alt="{{ usuario.usu_nombreUsuario }}" style="width: 50px">
+                                </td>
                                 <td>
-                                    <a href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
+                                    {{ usuario.roles.rol_nombre | uppercase }}
+                                </td>
+                                <td>{{usuario.usu_identifiacion}}</td>
+                                <td>
+                                    {{usuario.usu_nombre}}
+                                </td>
+                                <td>{{usuario.usu_apellido}}</td>
+                                <td *ngIf="usuario.usu_estado == 'true'" style="text-align: center;"><span
+                                        class="active">ACTIVO</span></td>
+                                <td *ngIf="usuario.usu_estado == 'false'" style="text-align: center;"><span
+                                        class="inactive">INACTIVO</span></td>
+                                <td>{{usuario.usu_creado | date: 'dd/MM/yyyy' }}</td>
+                                <td>
+                                    <a href="javascript:void(0)"><i class="fa fa-edit f-12"></i></a>&nbsp;
                                     <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
                                 </td>
-                                <td scope="row">
-                                    <img [src]="item.avatar" class="imgTable" style="width: 20px">
-                                </td>
-                                <td>
-                                    {{item.fName}}
-                                </td>
-                                <td>{{item.lName}}</td>
-                                <td>{{item.email}}</td>
-                                <td>{{item.last_login}}</td>
-                                <td>{{item.role}}</td>
                             </tr>
                         </tbody>
-                    </table> 
-                    <div class="d-flex justify-content-center p-2">
-                        <ngb-pagination
-                          [collectionSize]="(total$ | async)!" [(page)]="service.page" [pageSize]="service.pageSize">
-                        </ngb-pagination>
-                    </div>
+                    </table>
+                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="usuarioDto.length"></ngb-pagination>
                 </div>
             </div>
         </div>

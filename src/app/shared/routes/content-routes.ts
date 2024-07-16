@@ -44,7 +44,7 @@ export const content: Routes = [
     path: 'users',
     loadChildren: () => import('../../components/users/users.module').then(m => m.UsersModule),
     data: {
-      breadcrumb: "Users"
+      breadcrumb: "Usuarios"
     }
   },
 
@@ -56,14 +56,14 @@ export const content: Routes = [
     path: 'settings',
     loadChildren: () => import('../../components/setting/setting.module').then(m => m.SettingModule),
     data: {
-      breadcrumb: "Settings"
+      breadcrumb: "Configuración"
     }
   },
   {
     path: 'invoice',
     loadChildren: () => import('../../components/invoice/invoice.module').then(m => m.InvoiceModule),
     data: {
-      breadcrumb: "Invoice"
+      breadcrumb: "Pedidos"
     }
   }
 ];

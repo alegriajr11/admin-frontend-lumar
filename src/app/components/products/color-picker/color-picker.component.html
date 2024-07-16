@@ -1,0 +1,16 @@
+<div class="color-picker-container">
+    <label for="color-picker-input" class="color-picker-label">Color (requerido)</label>
+    <div class="color-picker-dropdown" (click)="toggleDropdown()">
+        <div class="selected-color-display">
+            <span class="color-circle" [ngStyle]="{'background-color': selectedColor.code}"></span>
+            <input id="color-picker-input" [(ngModel)]="selectedColor.name" class="color-picker-input" readonly>
+        </div>
+        <div class="arrow-down"></div>
+    </div>
+    <ul class="color-list" *ngIf="isDropdownOpen">
+        <li *ngFor="let color of colors" class="color-item" (click)="selectColor(color)">
+            <span class="color-circle" [ngStyle]="{'background-color': color.code}"></span>
+            <span class="color-name">{{ color.name }}</span>
+        </li>
+    </ul>
+</div>

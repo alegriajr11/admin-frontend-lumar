@@ -68,7 +68,7 @@
                 <li class="onhover-dropdown">
                     <div class="media align-items-center"><img
                             class="align-self-center pull-right img-50 rounded-circle"
-                            src="assets/images/dashboard/man.png" alt="header-user">
+                            [src]="getUserImageUrl(usuarioDto.usu_imagen)" alt="{{ usuarioDto.usu_nombreUsuario }}">
 
                         <div class="dotted-animation"><span class="animate-circle"></span><span
                                 class="main-circle"></span></div>
@@ -81,7 +81,8 @@
                         <li>
                             <a href="javascript:void(0)">
                                 <app-feather-icons [icon]="'settings'"></app-feather-icons>Configuración
-                            </a></li>
+                            </a>
+                        </li>
                         <li>
                             <a (click)="logOut()">
                                 <app-feather-icons [icon]="'log-out'"></app-feather-icons>Cerrar Sesión

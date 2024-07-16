@@ -1,0 +1,29 @@
+/* ACTIVE : INACTIVE */
+span.active {
+    background-color: #27c24c;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    box-shadow: 2px 2px 2px #999;
+    font-size: 0.9rem;
+}
+
+span.inactive {
+    background-color: #f03232;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    border-radius: 1rem;
+    padding: 0 0.5rem;
+    box-shadow: 2px 2px 2px #999;
+    font-size: 0.9rem;
+}
+
+
+//IMAGEN REDONDEADA
+.rounded-image {
+    width: 50px;
+    border-radius: 50%; /* Puedes ajustar el valor para cambiar el grado de redondez */
+}

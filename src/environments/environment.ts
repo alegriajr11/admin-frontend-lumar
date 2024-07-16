@@ -18,6 +18,13 @@ export const environment = {
   //RUTA AUTENTICACIÓN
   authURL: 'http://localhost:8080/auth/',
   restablecerContraseña: 'http://localhost:8080/auth/request-reset-password/',
+
+  //RUTA USUARIO
+  usuarioURL: 'http://localhost:8080/usuario/',
+  //RUTA IMAGEN USUARIO
+  usuarioIMG_URL: 'http://localhost:8080/uploads/usuarios/',
+  //RUTA ROLES
+  rol_URL: 'http://localhost:8080/rol/'
 };
 
 /*

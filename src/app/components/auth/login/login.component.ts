@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { LoginUsuarioDto } from 'src/app/models/usuario/login-usuario.dto';
@@ -14,6 +13,8 @@ import { TokenService } from 'src/app/shared/service/token.service';
 export class LoginComponent implements OnInit {
 
   usuario: LoginUsuarioDto = null;
+
+
 
   usu_nombreUsuario: string;
   usu_password: string;
@@ -57,5 +58,7 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+
 
 }

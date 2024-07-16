@@ -96,7 +96,6 @@ export class TableService {
 
         // 1. sort
         let tableItem = sort(this.userData, sortColumn, sortDirection);
-        console.log("tableItem", tableItem);
 
         // 2. filter
         const total = tableItem.length;
