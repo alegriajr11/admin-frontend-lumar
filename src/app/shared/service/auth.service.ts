@@ -31,6 +31,11 @@ export class AuthService {
     return this.httpClient.post<any>(this.authURL + 'sendEmail', usuario)
   }
 
+  //Solicitud enviar nombre de usuario al email
+  sendUserName(usuario: UsuarioEmailDto): Observable<any> {
+    return this.httpClient.post<any>(this.authURL + 'sendEmailUser', usuario)
+  }
+
   //Solicitud cambiar contraseña
   changePassword(resetPasssword: ChangePasswordDto) {
     return this.httpClient.post<any>(this.authURL + 'reset-password', resetPasssword)

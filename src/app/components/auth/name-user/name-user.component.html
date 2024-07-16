@@ -1,0 +1,38 @@
+<div class="page-wrapper">
+    <div class="authentication-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 p-0 card-left">
+                    <div class="card bg-primary">
+                        <div class="svg-icon">
+                            <!--Icono ARTESANIAS LUMAR-->
+                            <img src="../../../../assets/images/LogoLumar.svg" alt="">
+                        </div>
+                        <div class="single-item">
+                            <h3>{{tittle}}</h3>
+                            <p>{{info_pass}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-7 p-0 card-right">
+                    <div class="card tab2-card">
+                        <div class="card-body ">
+                            <form [formGroup]="userNameForm" (ngSubmit)="onSubmit()">
+                                <!-- Section 1: Email Input -->
+                                <div>
+                                    <h2 style="text-align: center;">Solicitar Nombre de Usuario</h2>
+                                    <div class="form-group">
+                                        <label for="email">Correo Electrónico:</label>
+                                        <input type="email" id="email" formControlName="email" class="form-control"
+                                            required />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Enviar Email</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

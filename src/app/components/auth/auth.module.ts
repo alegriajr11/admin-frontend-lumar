@@ -10,10 +10,11 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { SharedModule } from '../../shared/shared.module';
 import { CodeVerificationComponent } from './code-verification/code-verification.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NameUserComponent } from './name-user/name-user.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, CodeVerificationComponent],
+  declarations: [LoginComponent, CodeVerificationComponent, NameUserComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

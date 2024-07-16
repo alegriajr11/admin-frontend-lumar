@@ -38,7 +38,7 @@ export class CodeVerificationComponent {
     this.resetPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       resetPasswordCode: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]]
+      newPassword: ['', [Validators.required]]
     });
   }
 
