@@ -31,7 +31,6 @@ export class CodeVerificationComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private tokenService: TokenService,
     private toastrService: ToastrService,
     private router: Router
   ) {

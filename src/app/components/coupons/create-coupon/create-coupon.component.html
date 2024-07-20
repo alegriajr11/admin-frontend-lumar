@@ -7,120 +7,162 @@
         <div class="card-body tab2-card">
             <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
                 <li [ngbNavItem]="1">
-                    <a ngbNavLink>Promoción</a>
+                    <a ngbNavLink>Agregar Cupón</a>
                     <ng-template ngbNavContent>
-                        <form [formGroup]="restrictionForm" class="needs-validation" novalidate="">
-                            <h4>Promoción</h4>
-                            <div class="form-group row">
-                                <div class="col-xl-3 col-md-4"><label for="validationCustom3">Nombre Promoción: </label>
+                        <form [formGroup]="cuponForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+                            <h4>Cupón</h4>
+
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('cup_titulo').invalid && cuponForm.get('cup_titulo').touched}">
+                                <div class="col-xl-3 col-md-4">
+                                    <label for="validationCustom0"><span>*</span> Titulo</label>
                                 </div>
-                                <div class="col-md-7"><input class="form-control" formControlName="products"
-                                        id="validationCustom3" type="text" required="">
-                                </div>
-                                <div class="valid-feedback">Please Provide a Product Name.</div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-xl-3 col-md-4"><label>Categoria:</label></div>
                                 <div class="col-md-7">
-                                    <select class="custom-select form-select" formControlName="category" required="">
-                                        <option value="">--Selecciona la categoria--</option>
-                                        <option value="1">Electronics</option>
-                                        <option value="2">Clothes</option>
-                                        <option value="2">Shoes</option>
-                                        <option value="2">Digital</option>
+                                    <input class="form-control" id="cup_titulo" formControlName="cup_titulo" type="text"
+                                        required placeholder="Ingresa el Titulo del Cupón ">
+                                    <div *ngIf="cuponForm.get('cup_titulo').invalid && cuponForm.get('cup_titulo').touched"
+                                        class="text-danger">
+                                        El titulo del cupón es obligatorio.
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('cup_codigo').invalid && cuponForm.get('cup_codigo').touched}">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom1"><span>*</span> Código:
+                                    </label></div>
+                                <div class="col-md-7">
+                                    <input class="form-control" formControlName="cup_codigo" id="cup_codigo" type="text"
+                                        required placeholder="Ingresa el Codigo Cupón ">
+                                    <div *ngIf="cuponForm.get('cup_codigo').invalid && cuponForm.get('cup_codigo').touched"
+                                        class="text-danger">
+                                        El código del cupón es obligatorio.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom2"> Descripción: </label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input class="form-control" formControlName="cup_descripcion" id="cup_descripcion"
+                                        type="text" placeholder="Descripción del cupón (Opcional) ">
+                                </div>
+                            </div>
+
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('cup_fecha_inicio').invalid && cuponForm.get('cup_fecha_inicio').touched}">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom3"><span>*</span> Fecha
+                                        Inicio: </label></div>
+                                <div class="col-md-7">
+                                    <input class="form-control" formControlName="cup_fecha_inicio" id="cup_fecha_inicio"
+                                        type="date" required>
+                                    <div *ngIf="cuponForm.get('cup_fecha_inicio').invalid && cuponForm.get('cup_fecha_inicio').touched"
+                                        class="text-danger">
+                                        La fecha de inicio es obligatoria
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('cup_fecha_final').invalid && cuponForm.get('cup_fecha_final').touched}">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom4"><span>*</span> Fecha Fin:
+                                    </label></div>
+                                <div class="col-md-7">
+                                    <input class="form-control" formControlName="cup_fecha_final" id="cup_fecha_final"
+                                        type="date" required>
+                                    <div *ngIf="cuponForm.get('cup_fecha_final').invalid && cuponForm.get('cup_fecha_final').touched"
+                                        class="text-danger">
+                                        La fecha final es obligatoria.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Select Tipo de Descuento-->
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('tipoDescuentoTipId').invalid && cuponForm.get('tipoDescuentoTipId').touched}">
+                                <div class="col-xl-3 col-md-4">
+                                    <label for="validationCustom5"><span>*</span> Tipo de Descuento</label>
+                                </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" formControlName="tipoDescuentoTipId">
+                                        <option value="" disabled selected>Seleccione un tipo de descuento</option>
+                                        <option *ngFor="let tipo_descuento of tipo_descuentoDto"
+                                            value="{{tipo_descuento.tip_id}}">
+                                            {{tipo_descuento.tip_nombre}}
+                                        </option>
                                     </select>
+                                    <div *ngIf="cuponForm.get('tipoDescuentoTipId').invalid && cuponForm.get('tipoDescuentoTipId').touched"
+                                        class="text-danger">
+                                        El tipo de descuento es obligatorio.
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-xl-3 col-md-4"><label for="validationCustom3">Fecha Inicio: </label>
+
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('cup_cantidad_descuento').invalid && cuponForm.get('cup_cantidad_descuento').touched}">
+                                <div class="col-xl-3 col-md-4"><label for="validationCustom6"><span>*</span> Cantidad de
+                                        Descuento: </label></div>
+                                <div class="col-md-7">
+                                    <input class="form-control" formControlName="cup_cantidad_descuento"
+                                        id="cup_cantidad_descuento" type="number" required
+                                        placeholder="Ingresa la cantidad de descuento ">
+                                    <div *ngIf="cuponForm.get('cup_cantidad_descuento').invalid && cuponForm.get('cup_cantidad_descuento').touched"
+                                        class="text-danger">
+                                        La cantidad de descuento es obligatoria.
+                                    </div>
                                 </div>
-                                <div class="col-md-7"><input class="form-control" formControlName="products"
-                                        id="validationCustom3" type="date" required="">
-                                </div>
-                                <div class="valid-feedback">Please Provide a Product Name.</div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-xl-3 col-md-4"><label for="validationCustom3">Fecha Fin: </label>
+
+                            <!--Select Sección-->
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('seccion').invalid && cuponForm.get('seccion').touched}">
+                                <div class="col-xl-3 col-md-4">
+                                    <label for="validationCustom7"><span>*</span> Sección del Producto</label>
                                 </div>
-                                <div class="col-md-7"><input class="form-control" formControlName="products"
-                                        id="validationCustom3" type="date" required="">
+                                <div class="col-md-7">
+                                    <select class="form-control" formControlName="seccion">
+                                        <option value="" disabled selected>Seleccione una sección</option>
+                                        <option *ngFor="let seccion of seccionDto" value="{{seccion.secc_id}}">
+                                            {{seccion.secc_nombre}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="cuponForm.get('seccion').invalid && cuponForm.get('seccion').touched"
+                                        class="text-danger">
+                                        La sección del producto es obligatoria.
+                                    </div>
                                 </div>
-                                <div class="valid-feedback">Please Provide a Product Name.</div>
                             </div>
 
-                        </form>
-                    </ng-template>
-                </li>
-                <li [ngbNavItem]="2">
-                    <a ngbNavLink>Descuento</a>
-                    <ng-template ngbNavContent>
-                        <form [formGroup]="generalForm" class="needs-validation" novalidate="">
-                            <h4>Descuento</h4>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group row">
-                                        <div class="col-xl-3 col-md-4">
-                                            <label for="validationCustom0"><span>*</span>
-                                                Titulo del Cupón: </label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input class="form-control" formControlName="name" id="validationCustom0"
-                                                type="text" required="">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-xl-3 col-md-4">
-                                            <label for="validationCustom1"><span>*</span>
-                                                Código de Cupón</label>
-                                        </div>
-                                        <div class="col-md-7">
-                                            <input class="form-control" formControlName="code" id="validationCustom1"
-                                                type="text" required="">
-                                        </div>
-                                        <div class="valid-feedback">Please Provide a Valid Coupon Code.</div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-xl-3 col-md-4"><label>Promocion: </label></div>
-                                        <div class="col-md-7">
-                                            <select class="custom-select form-select" required="">
-                                                <option value="">--Selecciona una Opción--</option>
-                                                <option value="1">Promocion uno</option>
-                                                <option value="2">Promocion dos</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-xl-3 col-md-4"><label>Tipo de Descuento: </label></div>
-                                        <div class="col-md-7">
-                                            <select class="custom-select form-select" required="">
-                                                <option value="">--Selecciona una Opción--</option>
-                                                <option value="1">Porcentaje</option>
-                                                <option value="2">Precio Fijo</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <div class="col-xl-3 col-md-4"><label>Cantidad de Descuento:</label></div>
-                                        <div class="col-md-7">
-                                            <input class="form-control" formControlName="quantity" type="number"
-                                                required="">
-                                        </div>
-                                    </div>
-
-
+                            <!--Select Categoria-->
+                            <div class="form-group row"
+                                [ngClass]="{'has-error': cuponForm.get('categoriaCatId').invalid && cuponForm.get('categoriaCatId').touched}">
+                                <div class="col-xl-3 col-md-4">
+                                    <label for="validationCustom8"><span>*</span> Categoria del Producto</label>
                                 </div>
+                                <div class="col-md-7">
+                                    <select class="form-control" formControlName="categoriaCatId">
+                                        <option value="" disabled selected>Seleccione una categoria</option>
+                                        <option *ngFor="let categoria of categoriaDto" value="{{categoria.cat_id}}">
+                                            {{categoria.cat_nombre}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="cuponForm.get('categoriaCatId').invalid && cuponForm.get('categoriaCatId').touched"
+                                        class="text-danger">
+                                        La categoría del producto es obligatoria.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-primary">Crear Cupón</button>
                             </div>
                         </form>
                     </ng-template>
                 </li>
             </ul>
             <div [ngbNavOutlet]="nav" class="mt-2"></div>
-            <div class="pull-right">
-                <button type="button" class="btn btn-primary">Save</button>
-            </div>
         </div>
     </div>
 </div>

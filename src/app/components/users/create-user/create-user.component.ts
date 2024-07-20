@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { RolDto } from 'src/app/models/rol/rol.dto';
 import { RolService } from 'src/app/shared/service/usuarios/rol.service';
@@ -11,8 +11,7 @@ import { UsuariosService } from 'src/app/shared/service/usuarios/usuarios.servic
   styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
-  public accountForm: UntypedFormGroup;
-  public permissionForm: UntypedFormGroup;
+
   public active = 1;
 
   //DTO del Rol
@@ -25,7 +24,6 @@ export class CreateUserComponent implements OnInit {
   selectedFile: File = null;
 
   constructor(
-    private formBuilder: UntypedFormBuilder,
     private fb: FormBuilder,
     private usuarioService: UsuariosService,
     private toastrService: ToastrService,

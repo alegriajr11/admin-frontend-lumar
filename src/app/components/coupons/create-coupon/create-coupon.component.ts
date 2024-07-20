@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { NgbDateStruct, NgbDate, NgbCalendar, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbDateStruct, NgbCalendar } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
+import { CategoriaDto } from 'src/app/models/categoria/categoria.dto';
+import { SeccionDto } from 'src/app/models/seccion/seccion.dto';
+import { TipoDescuentoDto } from 'src/app/models/tipo_descuento/tipo_descuento.dto';
 
 @Component({
   selector: 'app-create-coupon',
@@ -8,54 +12,71 @@ import { NgbDateStruct, NgbDate, NgbCalendar, NgbDatepickerConfig } from '@ng-bo
   styleUrls: ['./create-coupon.component.scss']
 })
 export class CreateCouponComponent implements OnInit {
-  public generalForm: UntypedFormGroup;
-  public restrictionForm: UntypedFormGroup;
-  public usageForm: UntypedFormGroup;
-  public model: NgbDateStruct;
-  public date: { year: number, month: number };
-  public modelFooter: NgbDateStruct;
+
   public active = 1;
 
-  constructor(private formBuilder: UntypedFormBuilder, private calendar: NgbCalendar) {
-    this.createGeneralForm();
-    this.createRestrictionForm();
-    this.createUsageForm();
-  }
+  cuponForm: FormGroup;
+  selectedFile: File = null;
 
-  selectToday() {
-    this.model = this.calendar.getToday();
-  }
+  //DTOS
+  tipo_descuentoDto: TipoDescuentoDto[]
+  seccionDto: SeccionDto[]
+  //categoriaDto: CategoriaDto[]
 
-  createGeneralForm() {
-    this.generalForm = this.formBuilder.group({
-      name: [''],
-      code: [''],
-      start_date: [''],
-      end_date: [''],
-      free_shipping: [''],
-      quantity: [''],
-      discount_type: [''],
-      status: [''],
+  categoriaDto = [
+    { cat_id: 1, cat_nombre: 'Categoría 1' },
+    { cat_id: 2, cat_nombre: 'Categoría 2' },
+    // agrega tus categorías aquí
+  ];
+
+  constructor(
+    private fb: FormBuilder,
+    private toastrService: ToastrService,
+  ) {
+    this.cuponForm = this.fb.group({
+      cup_titulo: [''],
+      cup_codigo: [''],
+      cup_descripcion: [''],
+      cup_fecha_inicio: [''],
+      cup_fecha_final: [''],
+      cup_cantidad_descuento: [''],
+      seccion: [''],
+      tipoDescuentoTipId: [''],
+      categoriaCatId: ['']
     });
   }
 
-  createRestrictionForm() {
-    this.restrictionForm = this.formBuilder.group({
-      products: [''],
-      category: [''],
-      min: [''],
-      max: ['']
-    })
-  }
-
-  createUsageForm() {
-    this.usageForm = this.formBuilder.group({
-      limit: [''],
-      customer: ['']
-    })
-  }
+  //Inicializar Metodos
   ngOnInit() {
-
+    this.createCuponForm();
   }
 
+  createCuponForm(): void {
+    this.cuponForm = this.fb.group({
+      cup_titulo: ['', Validators.required],
+      cup_codigo: ['', Validators.required],
+      cup_descripcion: [''],
+      cup_fecha_inicio: ['', [Validators.required]],
+      cup_fecha_final: ['', Validators.required],
+      cup_cantidad_descuento: ['', Validators.required],
+      seccion: ['', Validators.required],
+      tipoDescuentoTipId: ['', Validators.required],
+      categoriaCatId: ['', Validators.required]
+    });
+  }
+
+  onSubmit(): void {
+    if (this.cuponForm.invalid) {
+      this.cuponForm.markAllAsTouched(); // Marca todos los campos como tocados para mostrar mensajes de error
+      console.log("Formulario inválido:", this.cuponForm.errors);
+      return;
+    }
+
+    const formData = new FormData();
+    Object.keys(this.cuponForm.controls).forEach(key => {
+      formData.append(key, this.cuponForm.get(key).value);
+    });
+    console.log('Submit Yo')
+    console.log(this.cuponForm.value); // Mostrar el valor del formulario en la consola
+  }
 }

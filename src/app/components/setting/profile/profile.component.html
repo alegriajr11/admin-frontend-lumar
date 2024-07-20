@@ -3,6 +3,99 @@
     <div class="row">
         <div class="col-xl-4">
             <div class="card">
+                <!--MODAL CAMBIAR CONTRASEÑA-->
+                <div class="btn-popup pull-right">
+                    <ng-template #content1 let-modal>
+                        <div class="modal-header">
+                            <h5 class="modal-title f-w-600" id="exampleModalLabel">Cambiar Contraseña</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit()">
+                                <!-- Section 1: Email Input -->
+                                <div *ngIf="!codeSent">
+                                    <h1>Restablecer Contraseña</h1>
+                                    <div class="form-group">
+                                        <label class="mb-2" for="email">Correo Electrónico:</label>
+                                        <input type="email" id="email" formControlName="email" class="form-control mb-2"
+                                            required >
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Enviar Código</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                            (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                    </div>
+                                </div>
+
+                                <!-- Section 2: Code and New Password Input -->
+                                <div *ngIf="codeSent">
+                                    <h1 class="text-center">Verificar Código y Cambiar Contraseña</h1>
+                                    <div class="form-group">
+                                        <p>Verifica el código enviado al correo electrónico e ingresalo para poder cambiar la contraseña</p>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-2" for="resetPasswordCode">Código de Verificación:</label>
+                                        <input type="number" id="resetPasswordCode" formControlName="resetPasswordCode"
+                                            class="form-control mb-3" required >
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-2" for="newPassword">Nueva Contraseña:</label>
+                                        <input type="password" id="newPassword" formControlName="newPassword"
+                                            class="form-control" required />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Restablecer Contraseña</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                            (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ng-template>
+                </div>
+
+
+                <!--MODAL EDITAR EMAIL Y USUARIO-->
+                <div class="btn-popup pull-right">
+                    <ng-template #content2 let-modal>
+                        <div class="modal-header">
+                            <h5 class="modal-title f-w-600" id="exampleModalLabel">Actualizar Usuario</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form [formGroup]="upadteUserForm" (ngSubmit)="onSubmitUpdate()">
+                                <!-- Section 1: Editar Email -->
+                                <div *ngIf="updateEmail">
+                                    <h1 class="text-center">Actualizar Correo Electrónico</h1>
+                                    <div class="form-group">
+                                        <label class="mb-2" for="email">Correo Electrónico:</label>
+                                        <input type="email" id="email" formControlName="email" class="form-control mb-2"
+                                            required >
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                            (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                    </div>
+                                </div>
+
+                                <!-- Section 2: Nombre de Usuario -->
+                                <div *ngIf="!updateEmail">
+                                    <h1 class="text-center">Actualizar Nombre de Usuario</h1>
+                                    <div class="form-group">
+                                        <label class="mb-2" for="name_user">Nombre de Usuario:</label>
+                                        <input type="text" id="name_user" formControlName="name_user"
+                                            class="form-control" required />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                            (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </ng-template>
+                </div>
+
                 <div class="card-body">
                     <div class="profile-details text-center">
                         <img class="img-fluid img-90 rounded-circle blur-up lazyloaded"
@@ -22,32 +115,11 @@
                     </div>
                     <hr>
                     <div class="project-status">
-                        <h5 class="f-w-600">Employee Status</h5>
+                        <h5 class="f-w-600">Rol</h5>
+                        
                         <div class="media">
                             <div class="media-body">
-                                <h6>Performance<span class="pull-right">80%</span></h6>
-                                <div class="progress sm-progress-bar">
-                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 90%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-body">
-                                <h6>Overtime <span class="pull-right">60%</span></h6>
-                                <div class="progress sm-progress-bar">
-                                    <div class="progress-bar bg-secondary" role="progressbar" style="width: 60%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-body">
-                                <h6>Leaves taken<span class="pull-right">70%</span></h6>
-                                <div class="progress sm-progress-bar">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 70%"
-                                        aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                <h5><app-feather-icons [icon]="'user'"></app-feather-icons><span style="font-weight: bold;" class="pull-right">{{usuarioDto.roles.rol_nombre}}</span></h5>
                             </div>
                         </div>
                     </div>
@@ -78,10 +150,12 @@
                                                 <tr>
                                                     <td>Correo Electrónico:</td>
                                                     <td>{{usuarioDto.usu_email}}</td>
+                                                    <td><a class="icon-edit" (click)="open(content2); datosUpdate(true)"><i class="fa fa-edit f-12"></i></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Nombre Usuario:</td>
                                                     <td>{{usuarioDto.usu_nombreUsuario}}</td>
+                                                    <td><a class="icon-edit" (click)="open(content2); datosUpdate(false)"><i class="fa fa-edit f-12"></i></a></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fecha de Creación:</td>
@@ -89,83 +163,61 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <button type="button" class="btn btn-primary">Cambiar Contraseña</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal"
+                                            data-original-title="test" data-target="#exampleModal"
+                                            (click)="open(content1)">CAMBIAR CONTRASEÑA</button>
                                     </div>
                                 </div>
                             </ng-template>
                         </li>
                         <li [ngbNavItem]="2">
                             <a ngbNavLink class="d-flex align-items-center"><i data-feather="settings"
-                                    class="me-2"></i>Contact</a>
+                                    class="me-2"></i>Detalles</a>
                             <ng-template ngbNavContent>
-                                <div class="account-setting">
-                                    <h5 class="f-w-600">Notifications</h5>
-                                    <div class="row">
-                                        <div class="col">
-                                            <label class="d-block mb-2" for="chk-ani">
-                                                <input class="checkbox_animated" id="chk-ani" type="checkbox">
-                                                Allow Desktop Notifications
-                                            </label>
-                                            <label class="d-block mb-2" for="chk-ani1">
-                                                <input class="checkbox_animated" id="chk-ani1" type="checkbox">
-                                                Enable Notifications
-                                            </label>
-                                            <label class="d-block mb-2" for="chk-ani2">
-                                                <input class="checkbox_animated" id="chk-ani2" type="checkbox">
-                                                Get notification for my own activity
-                                            </label>
-                                            <label class="d-block mb-0" for="chk-ani3">
-                                                <input class="checkbox_animated" id="chk-ani3" type="checkbox"
-                                                    checked="">
-                                                DND
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="account-setting deactivate-account">
-                                    <h5 class="f-w-600">Deactivate Account</h5>
+                                    <h5 class="f-w-600">Desactivar Cuenta</h5>
                                     <div class="row">
                                         <div class="col">
                                             <label class="d-block mb-2" for="edo-ani">
                                                 <input class="radio_animated" id="edo-ani" type="radio" name="rdo-ani"
                                                     checked="">
-                                                I have a privacy concern
+                                                    Tengo una duda sobre la privacidad
                                             </label>
                                             <label class="d-block mb-2" for="edo-ani1">
                                                 <input class="radio_animated" id="edo-ani1" type="radio" name="rdo-ani">
-                                                This is temporary
+                                                Esto es temporal
                                             </label>
                                             <label class="d-block mb-0" for="edo-ani2">
                                                 <input class="radio_animated" id="edo-ani2" type="radio" name="rdo-ani"
                                                     checked="">
-                                                Other
+                                                Otros
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary">Deactivate Account</button>
+                                    <button type="button" class="btn btn-primary">Desactivar Cuenta</button>
                                 </div>
                                 <div class="account-setting deactivate-account">
-                                    <h5 class="f-w-600">Delete Account</h5>
+                                    <h5 class="f-w-600">Eliminar Cuenta</h5>
                                     <div class="row">
                                         <div class="col">
                                             <label class="d-block mb-2" for="edo-ani3">
                                                 <input class="radio_animated" id="edo-ani3" type="radio" name="rdo-ani1"
                                                     checked="">
-                                                No longer usable
+                                                    Ya no quiero usarla
                                             </label>
                                             <label class="d-block mb-2" for="edo-ani4">
                                                 <input class="radio_animated" id="edo-ani4" type="radio"
                                                     name="rdo-ani1">
-                                                Want to switch on other account
+                                                    Quiere cambiar a otra cuenta
                                             </label>
                                             <label class="d-block mb-0" for="edo-ani5">
                                                 <input class="radio_animated" id="edo-ani5" type="radio" name="rdo-ani1"
                                                     checked="">
-                                                Other
+                                                Otros
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary">Delete Account</button>
+                                    <button type="button" class="btn btn-primary">Eliminar Cuenta</button>
                                 </div>
                             </ng-template>
                         </li>

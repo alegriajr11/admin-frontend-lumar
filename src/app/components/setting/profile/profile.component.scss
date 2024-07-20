@@ -3,3 +3,27 @@
     width: 50px;
     border-radius: 50%; /* Puedes ajustar el valor para cambiar el grado de redondez */
 }
+
+/* Eliminar flechas en Chrome, Safari, Edge, Opera */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+p {
+    font-weight: bold;
+    color: black;
+    text-align: justify;
+}
+
+.icon-edit{
+    font-size: 20px;
+    color: green;
+    cursor: pointer;
+}
+
+.icon-rol {
+    font-size: 40px;
+    font-weight: bold;
+}
