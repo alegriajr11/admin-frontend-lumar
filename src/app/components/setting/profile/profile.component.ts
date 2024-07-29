@@ -78,8 +78,8 @@ export class ProfileComponent implements OnInit {
   //CONSTRUTCTOR UPDATE USUARIO
   usuarioUpdateForm() {
     this.upadteUserForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      name_user: ['', [Validators.required]]
+      usu_email: ['', [Validators.required, Validators.email]],
+      usu_nombreUsuario: ['', [Validators.required]]
     });
   }
 
@@ -92,7 +92,25 @@ export class ProfileComponent implements OnInit {
   }
 
   onSubmitUpdate() {
-
+    if (this.upadteUserForm.valid) {
+      const updateData = this.upadteUserForm.value;
+      this.usuarioService.updateUser(this.usu_id, updateData).subscribe(
+        response => {
+          this.toastrService.success(response.message, 'Éxito', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+          this.modalRef.close();
+          this.getOneUser();
+        },
+        error => {
+          this.toastrService.error(error.error.message, 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+        }
+      );
+    }
   }
 
   //VERIFICAR QUE DATOS QUIERE ACTUALIZAR, EMAIL O NOMBRE USUARIO
@@ -146,15 +164,15 @@ export class ProfileComponent implements OnInit {
   //OBTENER EL EMAIL EN EL INPUT
   setEmailValue(email: string): void {
     this.resetPasswordForm.patchValue({
-      email: email
+      usu_email: email
     });
   }
 
   //OBTENER EL NOMBRE DE USUARIO Y EL EMAIL EN EL INPUT
   setNameEmailValue(email: string, name_user: string): void {
     this.upadteUserForm.patchValue({
-      email: email,
-      name_user: name_user
+      usu_email: email,
+      usu_nombreUsuario: name_user
     });
   }
 

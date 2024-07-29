@@ -89,6 +89,7 @@ export class TokenService {
     return this.roleAs;
   }
 
+  //Rol Administrador
   isAdmin(): boolean {
     if (!this.isLogged()) {
       return null;
@@ -99,6 +100,54 @@ export class TokenService {
     const valuesJson = JSON.parse(values);
     const rol = valuesJson.usu_rol;
     if (rol == 'Administrador') {
+      return true;
+    }
+    return false;
+  }
+
+  //Rol Soporte
+  isSoporte(): boolean {
+    if (!this.isLogged()) {
+      return null;
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    const rol = valuesJson.usu_rol;
+    if (rol == 'Soporte') {
+      return true;
+    }
+    return false;
+  }
+
+  //Rol Vendedor
+  isVendedor(): boolean {
+    if (!this.isLogged()) {
+      return null;
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    const rol = valuesJson.usu_rol;
+    if (rol == 'Vendedor') {
+      return true;
+    }
+    return false;
+  }
+
+  //Rol Supervisor
+  isSupervisor(): boolean {
+    if (!this.isLogged()) {
+      return null;
+    }
+    const token = this.getToken();
+    const payload = token.split('.')[1];
+    const values = atob(payload);
+    const valuesJson = JSON.parse(values);
+    const rol = valuesJson.usu_rol;
+    if (rol == 'Supervisor') {
       return true;
     }
     return false;

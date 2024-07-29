@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
 
   usu_id: number
   //DTO USUARIO
-  usuarioDto: UsuarioDto
+  usuarioDto: UsuarioDto;
   //LISTA VACIA
   listaVacia: any = undefined
 

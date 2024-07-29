@@ -60,7 +60,7 @@ export const content: Routes = [
     }
   },
   {
-    path: 'invoice',
+    path: 'pedidos',
     loadChildren: () => import('../../components/invoice/invoice.module').then(m => m.InvoiceModule),
     data: {
       breadcrumb: "Pedidos"

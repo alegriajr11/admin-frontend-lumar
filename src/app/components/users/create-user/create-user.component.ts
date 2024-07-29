@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { RolDto } from 'src/app/models/rol/rol.dto';
 import { RolService } from 'src/app/shared/service/usuarios/rol.service';
@@ -27,7 +28,8 @@ export class CreateUserComponent implements OnInit {
     private fb: FormBuilder,
     private usuarioService: UsuariosService,
     private toastrService: ToastrService,
-    private rolServices: RolService
+    private rolServices: RolService,
+    private router: Router
 
   ) {
     this.userForm = this.fb.group({
@@ -95,6 +97,7 @@ export class CreateUserComponent implements OnInit {
         this.userForm.reset(); // Limpiar el formulario después del envío exitoso
         this.selectedFile = null; // Resetear la imagen seleccionada
         this.fileInput.nativeElement.value = ''; // Resetear el campo de entrada de archivo
+        this.router.navigate(['/users/list-user'])
       },
       (error) => {
         console.error('Error al crear el usuario:', error);

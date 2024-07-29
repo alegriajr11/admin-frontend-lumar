@@ -1,11 +1,14 @@
 import { DecimalPipe } from '@angular/common';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { RolDto } from 'src/app/models/rol/rol.dto';
 import { UsuarioDto } from 'src/app/models/usuario/usuario.dto';
 import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
+import { RolService } from 'src/app/shared/service/usuarios/rol.service';
 import { UsuariosService } from 'src/app/shared/service/usuarios/usuarios.service';
 import { UserListDB, USERLISTDB } from 'src/app/shared/tables/list-users';
 import { environment } from 'src/environments/environment';
@@ -25,13 +28,21 @@ export class ListUserComponent implements OnInit {
 
   //DTO USUARIO
   usuarioDto: UsuarioDto[];
+
+  //ID DEL USUARIO
+  usu_id: number
+
   //LISTA VACIA
   listaVacia: any = undefined
 
+  upadteUserForm: FormGroup
+
+  //DTO del Rol
+  rolDto: RolDto[]
 
   public page = 1
   public pageSize = 10
-  
+
 
   //RUTA IMG USUARIOS
   private usuarioIMG_URL = environment.usuarioIMG_URL
@@ -41,13 +52,24 @@ export class ListUserComponent implements OnInit {
   total$: Observable<number>;
 
   constructor(
-    public service: TableService,
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private usuarioService: UsuariosService,
     private toastrService: ToastrService,
-  ) { }
+    private rolServices: RolService
+  ) {
+    this.upadteUserForm = this.fb.group({
+      usu_nombre: ['', [Validators.required]],
+      usu_apellido: ['', [Validators.required]],
+      usu_nombreUsuario: ['', [Validators.required]],
+      usu_estado: ['', [Validators.required]],
+      usu_email: ['', [Validators.required, Validators.email]],
+      rolId: ['', [Validators.required]],
+    });
+  }
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+
 
 
   //Abrir Modal
@@ -73,6 +95,23 @@ export class ListUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllUsers();
+    this.getAllRoles();
+  }
+
+  //CARGAR USUARIO AL FORMULARIO
+  loadUserData(userId: number) {
+    this.usu_id = userId
+    //Consultar el usuario a actualizar
+    this.usuarioService.getOneUser(this.usu_id).subscribe(data => {
+      this.upadteUserForm.patchValue({
+        usu_nombre: data.usu_nombre,
+        usu_apellido: data.usu_apellido,
+        usu_nombreUsuario: data.usu_nombreUsuario,
+        usu_estado: data.usu_estado,
+        usu_email: data.usu_email,
+        rolId: data.roles.rol_id,
+      });
+    });
   }
 
   //LISTAR TODOS LOS USUARIOS
@@ -88,9 +127,42 @@ export class ListUserComponent implements OnInit {
     )
   }
 
+  //Obtener los roles
+  getAllRoles(): void {
+    this.rolServices.getAllRoles().subscribe(
+      data => {
+        this.rolDto = data
+      },
+      err => {
+        err.error.message
+      }
+    )
+  }
+
   getUserImageUrl(imageName: string): string {
     return this.usuarioIMG_URL + imageName; // Construye la URL completa de la imagen
   }
 
+  onSubmitUpdate() {
+    if (this.upadteUserForm.valid) {
+      const updateData = this.upadteUserForm.value;
+      this.usuarioService.updateUser(this.usu_id, updateData).subscribe(
+        response => {
+          this.toastrService.success(response.message, 'Éxito', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+          this.modalRef.close();
+          this.getAllUsers();
+        },
+        error => {
+          this.toastrService.error(error.error.message, 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+        }
+      );
+    }
+  }
 }
 

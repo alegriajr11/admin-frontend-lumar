@@ -7,19 +7,32 @@
                     <h5>Lista de Pedidos</h5>
                 </div>
                 <div class="card-body">
+                    <div class="btn-popup pull-right">
+                        <ng-template #content let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title f-w-600" id="exampleModalLabel">Detalle del Pedido</h5>
+                            </div>
+                            <div class="modal-body">
+                                <label for="">Hola Modal</label>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                    (click)="modal.dismiss('Cross click')">Cerrar</button>
+                            </div>
+                        </ng-template>
+                    </div>
                     <div id="batchDelete" class="custom-datatable">
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col" sortable="no">No</th>
-                                        <th scope="col" sortable="invoice">Invoice</th>
-                                        <th scope="col" sortable="name">Date</th>
-                                        <th scope="col" sortable="name">Shipping</th>
-                                        <th scope="col" sortable="name">Amount</th>
-                                        <th scope="col" sortable="name">Tax</th>
-                                        <th scope="col" sortable="name">Total</th>
-                                        <th scope="col" sortable="name">Actions</th>
+                                        <th scope="col" sortable="invoice">No. Pedido</th>
+                                        <th scope="col" sortable="name">Fecha de Pedido</th>
+                                        <th scope="col" sortable="name">Cantidad</th>
+                                        <th scope="col" sortable="name">Precio</th>
+                                        <th scope="col" sortable="name">Cliente</th>
+                                        <th scope="col" sortable="name">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,11 +46,14 @@
                                         <td>{{item.date}}</td>
                                         <td>{{item.shipping}}</td>
                                         <td>{{item.amount}}</td>
-                                        <td>{{item.tax}}</td>
                                         <td>{{item.total}}</td>
                                         <td>
-                                            <a href="javascript:void(0)"><i class='fa fa-edit f-12'></i></a>&nbsp;
-                                            <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
+                                            <a href="javascript:void(0)" title="Editar"><i
+                                                    class="fa fa-edit f-12"></i></a>&nbsp;
+                                            <a href="javascript:void(0)" title="Eliminar"><i
+                                                    class="fa fa-trash-o"></i></a>&nbsp;
+                                            <a (click)="open(content)" title="Detalle del Pedido"><i
+                                                    class="bi bi-ticket-detailed"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -21,9 +21,17 @@ span.inactive {
     font-size: 0.9rem;
 }
 
+//POINTER ETIQUETA a
+a{
+    cursor: pointer;
+}
 
 //IMAGEN REDONDEADA
 .rounded-image {
     width: 50px;
     border-radius: 50%; /* Puedes ajustar el valor para cambiar el grado de redondez */
+}
+
+label{
+    font-weight: bold;
 }

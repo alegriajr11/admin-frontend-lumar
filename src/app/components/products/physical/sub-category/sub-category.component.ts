@@ -32,7 +32,6 @@ export class SubCategoryComponent {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    public service: TableService,
     private modalService: NgbModal,
     private subcategoriaService: SubcategoriaService
   ) { }

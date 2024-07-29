@@ -22,25 +22,7 @@ export class ContentLayoutComponent implements OnInit {
 
   constructor(public navServices: NavService) { }
 
-  public getRouterOutletState(outlet) {
-    return outlet.isActivated ? outlet.activatedRoute : '';
-  }
 
-  public rightSidebar($event) {
-    this.right_side_bar = $event
-  }
-
-  public clickRtl(val) {
-    if (val === 'RTL') {
-      document.body.className = 'rtl';
-      this.layoutClass = true;
-      this.layoutType = 'LTR';
-    } else {
-      document.body.className = '';
-      this.layoutClass = false;
-      this.layoutType = 'RTL';
-    }
-  }
 
   ngOnInit() { }
 

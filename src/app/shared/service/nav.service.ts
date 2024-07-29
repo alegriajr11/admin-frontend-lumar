@@ -98,7 +98,7 @@ export class NavService {
 			]
 		},
 		{
-			title: 'Pedidos', path: '/invoice', icon: 'archive', type: 'link', active: false
+			title: 'Pedidos', path: '/pedidos', icon: 'archive', type: 'link', active: false
 		},
 
 	]

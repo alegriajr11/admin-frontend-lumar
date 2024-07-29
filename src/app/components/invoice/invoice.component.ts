@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
 import { InvoiceDB, INVOICEDB } from '../../shared/tables/invoice';
+import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-invoice',
@@ -13,30 +14,43 @@ import { InvoiceDB, INVOICEDB } from '../../shared/tables/invoice';
 })
 export class InvoiceComponent implements OnInit {
 
+  modalRef: NgbModalRef;
+  public closeResult: string;
+
   public tableItem$: Observable<InvoiceDB[]>;
   public searchText;
   total$: Observable<number>;
 
-  constructor(public service: TableService) {
+  constructor(
+    public service: TableService,
+    private modalService: NgbModal,
+  ) {
     this.tableItem$ = service.tableItem$;
     this.total$ = service.total$;
     this.service.setUserData(INVOICEDB)
   }
 
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
-  onSort({ column, direction }: SortEvent) {
-    // resetting other headers
-    this.headers.forEach((header) => {
-      if (header.sortable !== column) {
-        header.direction = '';
-      }
+  //Abrir Modal
+  open(content) {
+    this.modalRef = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
+    this.modalRef.result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
     });
-
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
-
   }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
 
 
   ngOnInit() {

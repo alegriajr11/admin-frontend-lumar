@@ -19,6 +19,9 @@ export class SidebarComponent {
 
   //ROLES BOOL
   isAdmin: boolean;
+  isSoporte: boolean;
+  isVendedor: boolean;
+  isSupervisor: boolean;
 
   constructor(
     private router: Router, 
@@ -113,6 +116,13 @@ export class SidebarComponent {
   mostrarRoles(): void{
     if(this.isAdmin = this.tokenService.isAdmin()){
       this.rol_usuario = 'Administrador';
+    } else if(this.isSoporte = this.tokenService.isSoporte()){
+      this.rol_usuario = 'Soporte';
+    } else if(this.isVendedor = this.tokenService.isVendedor()){
+      this.rol_usuario = 'Soporte';
+    } else if(this.isSupervisor = this.tokenService.isSoporte()){
+      this.rol_usuario = 'Soporte';
     }
   }
+  
 }

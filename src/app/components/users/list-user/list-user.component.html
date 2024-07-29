@@ -5,6 +5,70 @@
             <h5>Detalles de Usuarios</h5>
         </div>
         <div class="card-body">
+
+            <!--MODAL EDITAR USUARIO-->
+            <div class="btn-popup pull-right">
+                <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h5 class="modal-title f-w-600" id="exampleModalLabel">Actualizar Usuario</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="upadteUserForm" (ngSubmit)="onSubmitUpdate()">
+                            <!-- Actualizar: Usuario -->
+                            <div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="usu_nombre">Nombres:</label>
+                                    <input type="email" id="usu_nombre" formControlName="usu_nombre"
+                                        class="form-control mb-2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="usu_apellido">Apellidos:</label>
+                                    <input type="email" id="usu_apellido" formControlName="usu_apellido"
+                                        class="form-control mb-2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="usu_nombreUsuario">Nombre de Usuario:</label>
+                                    <input type="email" id="usu_nombreUsuario" formControlName="usu_nombreUsuario"
+                                        class="form-control mb-2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="usu_email">Correo Electrónico:</label>
+                                    <input type="email" id="usu_email" formControlName="usu_email"
+                                        class="form-control mb-2" required>
+                                </div>
+
+                                <!--Rol del usuario-->
+                                <div class="form-group">
+                                    <label for="categoriaSelect" class="mb-1">Rol:</label>
+                                    <select class="form-control" formControlName="rolId">
+                                        <option value="" disabled selected>Seleccione un rol</option>
+                                        <option *ngFor="let rol of rolDto" value="{{rol.rol_id}}">
+                                            {{rol.rol_nombre}}</option>
+                                    </select>
+                                </div>
+
+                                <!--EDITAR ESTADO DEL USUARIO-->
+                                <div class="form-group">
+                                    <label for="categoriaSelect" class="mt-2">Estado:</label>
+                                    <select class="form-control" formControlName="usu_estado">
+                                        <option value="" disabled selected>Seleccione un estado</option>
+                                        <option value="true">Activo</option>
+                                        <option value="false">Inactivo</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                        (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+            </div>
+
+
             <div class="btn-popup pull-right">
                 <a class="btn btn-primary" [routerLink]="'/users/create-user'">Crear Usuario</a>
             </div>
@@ -24,9 +88,11 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let usuario of usuarioDto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index ">
+                            <tr
+                                *ngFor="let usuario of usuarioDto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index ">
                                 <td scope="row">
-                                    <img class="rounded-image" [src]="getUserImageUrl(usuario.usu_imagen)" alt="{{ usuario.usu_nombreUsuario }}" style="width: 50px">
+                                    <img class="rounded-image" [src]="getUserImageUrl(usuario.usu_imagen)"
+                                        alt="{{ usuario.usu_nombreUsuario }}" style="width: 50px">
                                 </td>
                                 <td>
                                     {{ usuario.roles.rol_nombre | uppercase }}
@@ -42,13 +108,14 @@
                                         class="inactive">INACTIVO</span></td>
                                 <td>{{usuario.usu_creado | date: 'dd/MM/yyyy' }}</td>
                                 <td>
-                                    <a href="javascript:void(0)"><i class="fa fa-edit f-12"></i></a>&nbsp;
+                                    <a (click)="open(content); loadUserData(usuario.usu_id)"><i class="fa fa-edit f-12"></i></a>&nbsp;
                                     <a href="javascript:void(0)"><i class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="usuarioDto.length"></ngb-pagination>
+                    <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+                        [collectionSize]="usuarioDto?.length"></ngb-pagination>
                 </div>
             </div>
         </div>
