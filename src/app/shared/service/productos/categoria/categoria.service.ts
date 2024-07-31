@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UpdateCategoriaDto } from 'src/app/models/categoria/categoria-update.dto';
 import { CategoriaDto } from 'src/app/models/categoria/categoria.dto';
 import { environment } from 'src/environments/environment';
 
@@ -18,6 +19,11 @@ export class CategoriaService {
     return this.httpClient.get<CategoriaDto[]>(this.categoriaUrl)
   }
 
+  //SOLICITUD LISTAR UNA CATEGORIA
+  public listaOneCategoria(idCategoria: number): Observable<UpdateCategoriaDto> {
+    return this.httpClient.get<UpdateCategoriaDto>(this.categoriaUrl + idCategoria)
+  }
+
   //SOLICITUD CREAR CATEGORIA
   public createCategoria(categoriaDto: CategoriaDto): Observable<any> {
     return this.httpClient.post<any>(`${this.categoriaUrl}`, categoriaDto)
@@ -31,6 +37,11 @@ export class CategoriaService {
   //SOLICITUD LISTAR CATEGORIAS POR SECCION
   public listaCategoriasBySeccion(secc_id: number): Observable<CategoriaDto[]> {
     return this.httpClient.get<CategoriaDto[]>(this.categoriaUrl + `seccion/${secc_id}`)
+  }
+
+  //PETICION ACTUALIZAR CATEGORIA
+  updateCategoria(cat_id: number, categoria: UpdateCategoriaDto): Observable<any> {
+    return this.httpClient.put<any>(this.categoriaUrl + cat_id, categoria)
   }
 
 }

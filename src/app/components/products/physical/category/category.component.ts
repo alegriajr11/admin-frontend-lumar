@@ -12,6 +12,7 @@ import { SeccionService } from 'src/app/shared/service/productos/seccion/seccion
 import { SeccionDto } from 'src/app/models/seccion/seccion.dto';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-category',
@@ -39,6 +40,12 @@ export class CategoryComponent implements OnInit {
   cat_nombre: string
   seccion_id: number
 
+  //Form Categoria
+  upadteCategoriaForm: FormGroup
+
+  //Id de la categoria
+  id_categoria: number
+
 
   searchText;
 
@@ -46,11 +53,17 @@ export class CategoryComponent implements OnInit {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private categoriaService: CategoriaService,
     private seccionService: SeccionService,
     private toastrService: ToastrService,
-  ) { }
+  ) { 
+    this.upadteCategoriaForm = this.fb.group({
+      cat_nombre: ['', [Validators.required]],
+      seccionId: ['', [Validators.required]],
+    });
+  }
 
 
   //Abrir Modal
@@ -139,6 +152,7 @@ export class CategoryComponent implements OnInit {
 
     this.newCategoriaDto = new CategoriaDto(this.cat_nombre, this.seccion_id);
 
+
     this.categoriaService.createCategoria(this.newCategoriaDto).subscribe(
       (data) => {
         this.toastrService.success(data.message, 'Éxito', {
@@ -215,5 +229,38 @@ export class CategoryComponent implements OnInit {
         });
       }
     });
+  }
+
+  loadDataCategoria(idCategoria: number){
+    this.id_categoria = idCategoria
+    //Consultar la categoria
+    this.categoriaService.listaOneCategoria(this.id_categoria).subscribe(data => {
+      this.upadteCategoriaForm.patchValue({
+        cat_nombre: data.cat_nombre,
+        seccionId: data.seccion.secc_id
+      })
+    })
+  }
+
+  onSubmitUpdate() {
+    if (this.upadteCategoriaForm.valid) {
+      const updateData = this.upadteCategoriaForm.value;
+      this.categoriaService.updateCategoria(this.id_categoria, updateData).subscribe(
+        response => {
+          this.toastrService.success(response.message, 'Éxito', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+          this.modalRef.close();
+          this.listarCategorias();
+        },
+        error => {
+          this.toastrService.error(error.error.message, 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+        }
+      );
+    }
   }
 }

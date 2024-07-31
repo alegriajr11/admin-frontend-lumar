@@ -1,16 +1,15 @@
 import { DecimalPipe } from '@angular/common';
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { RolDto } from 'src/app/models/rol/rol.dto';
 import { UsuarioDto } from 'src/app/models/usuario/usuario.dto';
-import { NgbdSortableHeader, SortEvent } from 'src/app/shared/directives/NgbdSortableHeader';
 import { TableService } from 'src/app/shared/service/table.service';
 import { RolService } from 'src/app/shared/service/usuarios/rol.service';
 import { UsuariosService } from 'src/app/shared/service/usuarios/usuarios.service';
-import { UserListDB, USERLISTDB } from 'src/app/shared/tables/list-users';
+import { UserListDB } from 'src/app/shared/tables/list-users';
 import { environment } from 'src/environments/environment';
 
 @Component({

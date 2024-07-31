@@ -1,6 +1,5 @@
-import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, QueryList, ViewChildren } from '@angular/core';
 import { NgbModal, ModalDismissReasons, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, map } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { TableService } from 'src/app/shared/service/table.service';
 import { NgbdSortableHeader } from "src/app/shared/directives/NgbdSortableHeader";
@@ -8,7 +7,7 @@ import { SeccionDto } from 'src/app/models/seccion/seccion.dto';
 import { SeccionService } from 'src/app/shared/service/productos/seccion/seccion.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-import { ok } from 'assert';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 @Component({
@@ -23,6 +22,8 @@ export class SeccionComponent {
 
   modalRef: NgbModalRef;
 
+  //id de la seccion
+  id_seccion: number
 
   //DTO SECCION
   seccionDto: SeccionDto[];
@@ -32,6 +33,8 @@ export class SeccionComponent {
 
   //Variable para agregar seccion
   secc_nombre: string
+
+  upadteSeccionForm: FormGroup
 
 
   //LISTA VACIA
@@ -43,10 +46,15 @@ export class SeccionComponent {
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
+    private fb: FormBuilder,
     private modalService: NgbModal,
     private seccionService: SeccionService,
     private toastrService: ToastrService,
-  ) { }
+  ) { 
+    this.upadteSeccionForm =  this.fb.group({
+      secc_nombre: ['', [Validators.required]],
+    })
+  }
 
 
   //Abrir Modal
@@ -149,7 +157,7 @@ export class SeccionComponent {
       }
     });
   }
-  
+
   registrarSeccion(): void {
     if (!this.secc_nombre || this.secc_nombre.trim().length === 0) {
       this.toastrService.error('Debe ingresar un nombre para la sección', 'Error', {
@@ -181,6 +189,37 @@ export class SeccionComponent {
         });
       }
     );
+  }
+
+  loadDataSeccion(seccionId: number){
+    this.id_seccion = seccionId
+    this.seccionService.oneSeccion(this.id_seccion).subscribe(data => {
+      this.upadteSeccionForm.patchValue({
+        secc_nombre: data.secc_nombre
+      })
+    })
+  }
+
+  onSubmitUpdate() {
+    if (this.upadteSeccionForm.valid) {
+      const updateData = this.upadteSeccionForm.value;
+      this.seccionService.updateSeccion(this.id_seccion, updateData).subscribe(
+        response => {
+          this.toastrService.success(response.message, 'Éxito', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+          this.modalRef.close();
+          this.listarSecciones();
+        },
+        error => {
+          this.toastrService.error(error.error.message, 'Error', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
+        }
+      );
+    }
   }
 
 

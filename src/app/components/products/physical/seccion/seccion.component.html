@@ -10,26 +10,52 @@
                     <div class="btn-popup pull-right">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-original-title="test"
                             data-target="#exampleModal" (click)="open(content)">Agregar Seccion</button>
+
+                        <!--Modal Agregar Seccion-->
                         <ng-template #content let-modal>
                             <div class="modal-header">
                                 <h5 class="modal-title f-w-600" id="exampleModalLabel">Agregar Sección</h5>
-
                             </div>
                             <div class="modal-body">
                                 <form class="needs-validation">
                                     <div class="form">
                                         <div class="form-group">
                                             <label for="validationCustom01" class="mb-1">Nombre de Sección :</label>
-                                            <input type="text" class="form-control" name="secc_nombre" id="secc_nombre" [(ngModel)]="secc_nombre"
-                                            required autocomplete="off">
+                                            <input type="text" class="form-control" name="secc_nombre" id="secc_nombre"
+                                                [(ngModel)]="secc_nombre" required autocomplete="off">
                                         </div>
                                     </div>
                                 </form>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" (click)="registrarSeccion()">Guardar</button>
+                                <button type="button" class="btn btn-primary"
+                                    (click)="registrarSeccion()">Guardar</button>
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal"
                                     (click)="modal.dismiss('Cross click')">Cerrar</button>
+                            </div>
+                        </ng-template>
+
+                        <!--Modal Actualizar Seccion-->
+                        <ng-template #content2 let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title f-w-600" id="exampleModalLabel">Actualizar Sección</h5>
+                            </div>
+                            <div class="modal-body">
+                                <form [formGroup]="upadteSeccionForm" (ngSubmit)="onSubmitUpdate()"
+                                    class="needs-validation">
+                                    <div class="form">
+                                        <div class="form-group">
+                                            <label for="validationCustom01" class="mb-1">Nombre de Sección :</label>
+                                            <input type="text" class="form-control" name="secc_nombre" id="secc_nombre"
+                                                formControlName="secc_nombre" required autocomplete="off">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                                        <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                            (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                    </div>
+                                </form>
                             </div>
                         </ng-template>
                     </div>
@@ -45,17 +71,21 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let seccion of seccionDto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index ">
+                                    <tr
+                                        *ngFor="let seccion of seccionDto | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; let i = index ">
                                         <th scope="row">{{calcularIDGlobal(i, page, 10)}}</th>
                                         <td>{{ seccion.secc_nombre }}</td>
                                         <td>
-                                            <a href="javascript:void(0)"><i class="fa fa-edit f-12"></i></a>&nbsp;
-                                            <a (click)="eliminarSeccion(seccion.secc_id)"><i class="fa fa-trash-o"></i></a>
+                                            <a (click)="open(content2); loadDataSeccion(seccion.secc_id)"><i
+                                                    class="fa fa-edit f-12"></i></a>&nbsp;
+                                            <a (click)="eliminarSeccion(seccion.secc_id)"><i
+                                                    class="fa fa-trash-o"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize" [collectionSize]="seccionDto?.length"></ngb-pagination>
+                            <ngb-pagination class="d-flex justify-content-center" [(page)]="page" [pageSize]="pageSize"
+                                [collectionSize]="seccionDto?.length"></ngb-pagination>
                         </div>
                     </div>
                 </div>
