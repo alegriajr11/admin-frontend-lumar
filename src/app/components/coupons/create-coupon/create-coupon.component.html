@@ -34,7 +34,7 @@
                                     </label></div>
                                 <div class="col-md-7">
                                     <input class="form-control" formControlName="cup_codigo" id="cup_codigo" type="text"
-                                        required placeholder="Ingresa el Codigo Cupón ">
+                                        required placeholder="Ingresa el Codigo Cupón" maxlength="10">
                                     <div *ngIf="cuponForm.get('cup_codigo').invalid && cuponForm.get('cup_codigo').touched"
                                         class="text-danger">
                                         El código del cupón es obligatorio.
@@ -57,7 +57,7 @@
                                         Inicio: </label></div>
                                 <div class="col-md-7">
                                     <input class="form-control" formControlName="cup_fecha_inicio" id="cup_fecha_inicio"
-                                        type="date" required>
+                                        type="date" required (change)="fechaMinimaFinal();">
                                     <div *ngIf="cuponForm.get('cup_fecha_inicio').invalid && cuponForm.get('cup_fecha_inicio').touched"
                                         class="text-danger">
                                         La fecha de inicio es obligatoria
@@ -71,7 +71,7 @@
                                     </label></div>
                                 <div class="col-md-7">
                                     <input class="form-control" formControlName="cup_fecha_final" id="cup_fecha_final"
-                                        type="date" required>
+                                        type="date" required [min]="cup_fecha_inicial">
                                     <div *ngIf="cuponForm.get('cup_fecha_final').invalid && cuponForm.get('cup_fecha_final').touched"
                                         class="text-danger">
                                         La fecha final es obligatoria.
@@ -86,7 +86,7 @@
                                     <label for="validationCustom5"><span>*</span> Tipo de Descuento</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <select class="form-control" formControlName="tipoDescuentoTipId">
+                                    <select class="form-control" formControlName="tipoDescuentoTipId" (change)="selectedTipoDescuento();">
                                         <option value="" disabled selected>Seleccione un tipo de descuento</option>
                                         <option *ngFor="let tipo_descuento of tipo_descuentoDto"
                                             value="{{tipo_descuento.tip_id}}">
@@ -102,8 +102,13 @@
 
                             <div class="form-group row"
                                 [ngClass]="{'has-error': cuponForm.get('cup_cantidad_descuento').invalid && cuponForm.get('cup_cantidad_descuento').touched}">
+                                <div *ngIf="cuponForm.get('tipoDescuentoTipId').valid"
+                                        class="text-primary">
+                                        {{info_cantidad}}
+                                    </div>
                                 <div class="col-xl-3 col-md-4"><label for="validationCustom6"><span>*</span> Cantidad de
-                                        Descuento: </label></div>
+                                        Descuento: </label>
+                                </div>
                                 <div class="col-md-7">
                                     <input class="form-control" formControlName="cup_cantidad_descuento"
                                         id="cup_cantidad_descuento" type="number" required
@@ -122,7 +127,8 @@
                                     <label for="validationCustom7"><span>*</span> Sección del Producto</label>
                                 </div>
                                 <div class="col-md-7">
-                                    <select class="form-control" formControlName="seccion">
+                                    <select class="form-control" formControlName="seccion"
+                                        (change)="onSectionChangeCategoria();">
                                         <option value="" disabled selected>Seleccione una sección</option>
                                         <option *ngFor="let seccion of seccionDto" value="{{seccion.secc_id}}">
                                             {{seccion.secc_nombre}}

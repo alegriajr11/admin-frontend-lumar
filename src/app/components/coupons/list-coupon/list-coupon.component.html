@@ -4,51 +4,116 @@
         <div class="card-header">
             <h5>Lista de Cupones - Promociones</h5>
         </div>
-        <div class="card-body tab2-card">
+        <div class="card-body">
+            <!--MODAL EDITAR CUPON-->
+            <div class="btn-popup pull-right">
+                <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h5 class="modal-title f-w-600" id="exampleModalLabel">Actualizar Cupón</h5>
+                    </div>
+                    <div class="modal-body">
+                        <form [formGroup]="upadteCuponForm" (ngSubmit)="onSubmitUpdate()">
+                            <!-- Actualizar: Cupon -->
+                            <div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="cup_titulo">Titulo:</label>
+                                    <input type="email" id="cup_titulo" formControlName="cup_titulo"
+                                        class="form-control mb-2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="cup_codigo">Código:</label>
+                                    <input type="email" id="cup_codigo" formControlName="cup_codigo"
+                                        class="form-control mb-2" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-2" for="cup_descripcion">Descripción:</label>
+                                    <input type="email" id="cup_descripcion" formControlName="cup_descripcion"
+                                        class="form-control mb-2" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="mb-2" for="cup_fecha_inicio">Fecha Inicio:</label>
+                                    <input type="date" id="cup_fecha_inicio" formControlName="cup_fecha_inicio"
+                                        class="form-control mb-2" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="mb-2" for="cup_fecha_final">Fecha Final:</label>
+                                    <input type="date" id="cup_fecha_final" formControlName="cup_fecha_final"
+                                        class="form-control mb-2" required [min]="cup_fecha_inicial">
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="mb-2" for="cup_cantidad_descuento">Cantidad Descuento:</label>
+                                    <input type="number" id="cup_cantidad_descuento" formControlName="cup_cantidad_descuento"
+                                        class="form-control mb-2" required>
+                                </div>
+
+                                <!--Estado del cupon-->
+                                <div class="form-group">
+                                    <label for="categoriaSelect" class="mb-1">Estado:</label>
+                                    <select class="form-control mb-2" formControlName="cup_estado">
+                                        <option disabled selected>Seleccione un estado</option>
+                                        <option value="true">Activo</option>
+                                        <option value="false">Inactivo</option>
+                                    </select>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-primary">Actualizar</button>
+                                    <button class="btn btn-secondary" type="button" data-dismiss="modal"
+                                        (click)="modal.dismiss('Cross click')">Cerrar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </ng-template>
+            </div>
+
+            <!--Tabla lista de cupones-->
             <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
                 <li [ngbNavItem]="1">
-                    <a ngbNavLink>Cupones</a>
                     <ng-template ngbNavContent>
                         <h3 style="color: black;">Cupones</h3>
-                        <div class="custom-datatable">
-                            <button class="btn btn-primary me-1 mb-3" style="float: right;">Eliminar</button>
-                            <div class="clearfix"></div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col" sortable="title" (sort)="onSort($event)">Titulo</th>
-                                        <th scope="col" sortable="code" (sort)="onSort($event)">Código</th>
-                                        <th scope="col" sortable="discount" (sort)="onSort($event)">Descuento</th>
-                                        <th scope="col" sortable="status" (sort)="onSort($event)">Estado</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let item of tableItem$ | async ">
+                        <div class="table-responsive">
+                            <div class="custom-datatable">
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Titulo</th>
+                                            <th scope="col">Código</th>
+                                            <th scope="col">Fecha Caducidad</th>
+                                            <th scope="col">Descuento</th>
+                                            <th scope="col">Categoria</th>
+                                            <th scope="col">Estado</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cupon of cuponDto ">
 
-                                        <th scope="row">
-                                            <input type="checkbox" name="title_select" onclick="onSelect(item.id)">
-                                            {{ item.title }}
-                                        </th>
-                                        <td>
-                                            {{item.code}}
-                                        </td>
-                                        <td>{{item.discount}}</td>
-                                        <td><i class="fa fa-circle {{item.status}} f-12"></i></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="d-flex justify-content-center p-2">
-                                <ngb-pagination [collectionSize]="(total$ | async)!" [(page)]="service.page"
-                                    [pageSize]="service.pageSize">
-                                </ngb-pagination>
+                                            <th scope="row">
+                                                {{ cupon.cup_titulo }}
+                                            </th>
+                                            <td>
+                                                {{cupon.cup_codigo}}
+                                            </td>
+                                            <td>{{cupon.cup_fecha_final | date: 'dd/MM/yyyy'}}</td>
+                                            <td>{{cupon.cup_cantidad_descuento}}</td>
+                                            <td>{{cupon.categoria.cat_nombre}}</td>
+                                            <td *ngIf="cupon.cup_estado == 'true'" style="text-align: center;"><span
+                                                    class="active">ACTIVO</span></td>
+                                            <td *ngIf="cupon.cup_estado == 'false'" style="text-align: center;"><span
+                                                    class="inactive">INACTIVO</span></td>
+                                            <td>
+                                                <a (click)="open(content); loadCuponData(cupon.cup_id)"><i class="fa fa-edit f-12"></i></a>&nbsp;
+                                                <a (click)="eliminarCupon(cupon.cup_id)"><i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                    </ng-template>
-                </li>
-                <li [ngbNavItem]="2">
-                    <a ngbNavLink>Promociones</a>
-                    <ng-template ngbNavContent>
-                        <h3 style="color: black;">Promociones</h3>
                     </ng-template>
                 </li>
             </ul>

@@ -9,10 +9,3 @@ export class CategoriaDto {
         this.seccionId = seccionId;
     }
 }
-
-// Definición de la interfaz Seccion para representar la estructura de los objetos de las secciones
-interface Seccion {
-    secc_id: number;
-    secc_nombre: string;
-}
-

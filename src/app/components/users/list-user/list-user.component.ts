@@ -68,8 +68,6 @@ export class ListUserComponent implements OnInit {
     });
   }
 
-  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
-
 
 
   //Abrir Modal

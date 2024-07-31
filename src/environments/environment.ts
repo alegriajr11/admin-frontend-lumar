@@ -24,7 +24,13 @@ export const environment = {
   //RUTA IMAGEN USUARIO
   usuarioIMG_URL: 'http://localhost:8080/uploads/usuarios/',
   //RUTA ROLES
-  rol_URL: 'http://localhost:8080/rol/'
+  rol_URL: 'http://localhost:8080/rol/',
+
+  //RUTA CUPON
+  cupon_URL: 'http://localhost:8080/cupon/',
+
+  //RUTA TIPO DE DESCUENTO
+  tipo_descuento_URL: 'http://localhost:8080/tipo-descuento/'
 };
 
 /*
