@@ -1,225 +1,208 @@
 <!-- Container-fluid starts-->
 <div class="container-fluid">
-  <div class="card">
-    <div class="card-header">
-      <h5>Agregar Producto</h5>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card tab2-card">
+                <div class="card-header">
+                    <h5> Crear Producto</h5>
+                </div>
+                <div class="card-body tab2-card">
+                    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+                        <!--CREAR PRODUCTO-->
+                        <li [ngbNavItem]="1">
+                            <a ngbNavLink>Crear Producto</a>
+                            <ng-template ngbNavContent>
+                                <form [formGroup]="productoForm" (ngSubmit)="onSubmit()"
+                                    class="needs-validation user-add" novalidate>
+                                    <h4>Información Necesaria</h4>
+
+                                    <div class="file-upload-container">
+                                        <label for="file-upload" class="file-upload-button">
+                                            <i class="fa fa-cloud-upload"></i> Seleccionar Fotos del Producto
+                                        </label>
+                                        <input id="file-upload" type="file" style="display:none;"
+                                            (change)="onFileSelected($event)" multiple>
+                                        <div class="file-upload-instructions">
+                                            Sube tu imagen en formato JPEG, PNG o WEBP con una resolución mínima de 5000
+                                            píxeles en ambos lados y un peso máximo de 10 MB.
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row m-2">
+                                        <div class="col-md-7 offset-md-4 d-flex flex-wrap">
+                                            <div *ngFor="let foto of fotos; let i = index"
+                                                class="position-relative m-3">
+                                                <img [src]="foto" alt="Foto {{i + 1}}" class="img-thumbnail"
+                                                    style="width: 57px; height: 60px;">
+                                                <span *ngIf="i === 0" class="badge badge-primary position-absolute"
+                                                    style="bottom: 0; left: 0; color: #000;">Portada</span>
+                                                <button type="button"
+                                                    class="btn btn-danger btn-sm position-absolute p-0 eliminar-foto"
+                                                    (click)="removeFoto(i)">X</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for=""><span>*</span> Sección:</label>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <select class="custom-select form-select" formControlName="seccion"
+                                                (change)="onSectionChangeCategoria(); habilitarTalla()">
+                                                <option value="" disabled selected>Selecciona una Sección</option>
+                                                <option *ngFor="let seccion of seccionDto" value="{{seccion.secc_id}}">
+                                                    {{seccion.secc_nombre}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="productoForm.get('seccion').invalid && productoForm.get('seccion').touched"
+                                                class="text-danger">
+                                                La sección del producto es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for=""><span>*</span> Categoría:</label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <select id="categoriaSelect" class="custom-select form-select"
+                                                formControlName="categoria" (change)="onCategoriaChangeSubCategoria();">
+                                                <option value="" disabled selected>Selecciona una Categoria</option>
+                                                <option *ngFor="let categoria of categoriaDto"
+                                                    value="{{categoria.cat_id}}">{{categoria.cat_nombre}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="productoForm.get('categoria').invalid && productoForm.get('categoria').touched"
+                                                class="text-danger">
+                                                La categoria del producto es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-xl-3 col-md-4"><span>*</span> Subcategoría:</label>
+                                        <div class="col-md-7">
+                                            <select class="custom-select form-select" formControlName="sub_id">
+                                                <option value="" disabled selected>Selecciona una subcategoría</option>
+                                                <option *ngFor="let subcategoria of subcategoriaDto"
+                                                    value="{{subcategoria.sub_id}}">{{subcategoria.sub_nombre}}</option>
+                                            </select>
+                                            <div *ngIf="productoForm.get('sub_id').invalid && productoForm.get('sub_id').touched"
+                                                class="text-danger">
+                                                La subcategoria del producto es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="prod_nombre"><span>*</span> Nombre del Producto:</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="prod_nombre" formControlName="prod_nombre"
+                                                type="text" required placeholder="Ingresa el nombre del producto">
+                                            <div *ngIf="productoForm.get('prod_nombre').invalid && productoForm.get('prod_nombre').touched"
+                                                class="text-danger">
+                                                El nombre del producto es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="prod_descripcion"> Descripción:</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control" id="prod_descripcion"
+                                                formControlName="prod_descripcion" type="text" placeholder="(Opcional)">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="prod_precio"><span>*</span> Precio:</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control precio" id="prod_precio"
+                                                formControlName="prod_precio" type="number" required
+                                                placeholder="Ingresa el precio del producto">
+                                            <div *ngIf="productoForm.get('prod_precio').invalid && productoForm.get('prod_precio').touched"
+                                                class="text-danger">
+                                                El precio del producto es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <div class="col-xl-3 col-md-4">
+                                            <label for="prod_precio"><span>*</span> Precio de Oferta:</label>
+                                        </div>
+                                        <div class="col-xl-8 col-md-7">
+                                            <input class="form-control precio" id="prod_precio_oferta"
+                                                formControlName="prod_precio_oferta" type="number" required
+                                                placeholder="Ingresa el precio de oferta del producto">
+                                            <div *ngIf="productoForm.get('prod_precio_oferta').invalid && productoForm.get('prod_precio_oferta').touched"
+                                                class="text-danger">
+                                                El precio de oferta del producto es obligatorio.
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div formArrayName="inventarios">
+                                        <div class="form-group row"
+                                            *ngFor="let inventario of inventarios.controls; let i = index"
+                                            [formGroupName]="i">
+                                            <h4>Inventario:</h4>
+                                            <div class="col-xl-3 col-md-4">
+                                                <label for="inv_cantidad_disponible"><span>*</span> Cantidad
+                                                    Disponible:</label>
+                                            </div>
+
+                                            <div class="col-xl-8 col-md-7 mt-2">
+                                                <input class="form-control" id="inv_cantidad_disponible"
+                                                    formControlName="inv_cantidad_disponible" type="number" [min]="1" />
+                                            </div>
+
+
+                                            <div class="col-xl-3 col-md-4" *ngIf="activate_talla">
+                                                <label for="inv_talla"><span>*</span> Talla:</label>
+                                            </div>
+
+                                            <div class="col-xl-8 col-md-7 mt-2" *ngIf="activate_talla">
+                                                <input class="form-control" id="inv_talla" formControlName="inv_talla"
+                                                    type="text" />
+                                            </div>
+
+                                            <!-- Botón para eliminar el inventario agregado -->
+                                            <div class="col-xl-12 mt-2">
+                                                <!-- Solo mostrar el botón si el inventario tiene un id -->
+                                                <button type="button" class="btn btn-danger"
+                                                    (click)="removeInventario(i)"
+                                                    *ngIf="inventarios.at(i).value.id">Eliminar</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-md-6" *ngIf="activate_talla">
+                                            <a class="btn btn-secondary" (click)="addInventario()">Agregar
+                                                Inventario</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-primary">Crear Producto</button>
+                                    </div>
+                                </form>
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="card-body">
-      <form class="needs-validation" [formGroup]="productoForm" (ngSubmit)="onSubmit()" novalidate>
-        <!-- Paso 1 -->
-        <div *ngIf="currentStep === 1">
-          <h4>Paso 1: Seleccionar Sección, Categoría y Subcategoría</h4>
-
-          <div class="add-product-form">
-            <div class="form-group row">
-              <label class="col-xl-3 col-md-4">Sección:</label>
-              <div class="col-md-7">
-                <select class="custom-select form-select" formControlName="seccion"
-                  (change)="onSectionChange(); onSectionChangeCategoria()">
-                  <option value="" disabled selected>Seleccione una Sección</option>
-                  <option *ngFor="let seccion of seccionDto" value="{{seccion.secc_id}}">{{seccion.secc_nombre}}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="add-product-form">
-            <div class="form-group row">
-              <label class="col-xl-3 col-md-4">Categoría:</label>
-              <div class="col-md-7">
-                <select class="custom-select form-select" formControlName="categoria">
-                  <option value="" disabled selected>Seleccione una Categoria</option>
-                  <option *ngFor="let categoria of categoriaDto" value="{{categoria.cat_id}}">{{categoria.cat_nombre}}
-                  </option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="add-product-form">
-            <div class="form-group row">
-              <label class="col-xl-3 col-md-4">Subcategoría:</label>
-              <div class="col-md-7">
-                <select class="custom-select form-select" formControlName="subcategoria">
-                  <option value="">--Selecciona la subcategoría--</option>
-                  <option value="subcat1">Subcategoría 1</option>
-                  <option value="subcat2">Subcategoría 2</option>
-                  <!-- Agrega más subcategorías según necesites -->
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-primary" (click)="goToNextStep()">Siguiente</button>
-          </div>
-        </div>
-
-        <!-- Paso 2 -->
-        <div *ngIf="currentStep === 2">
-          <h4>Paso 2: Detalles de Talla y Color</h4>
-          <div *ngIf="isRopaOrZapatos" class="add-product-form">
-            <div formArrayName="tallas">
-              <div *ngFor="let talla of tallas.controls; let i = index" [formGroupName]="i"
-                class="form-group row align-items-center mb-2">
-                <label class="col-md-3 col-form-label">Talla {{ i + 1 }}:</label>
-                <div class="col-md-6">
-                  <input class="form-control" formControlName="talla" type="text" required placeholder="Ej: 38 o XS">
-                </div>
-                <div class="col-md-2">
-                  <button type="button" class="btn btn-danger" (click)="removeTalla(i)"><i
-                      class="fa fa-trash-o"></i></button>
-                </div>
-              </div>
-              <button type="button" class="btn btn-secondary mb-2" (click)="addTalla()">Agregar Talla</button>
-            </div>
-          </div>
-
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-secondary" (click)="goToPreviousStep()">Anterior</button>
-            <button type="button" class="btn btn-primary" (click)="goToNextStep()">Siguiente</button>
-          </div>
-        </div>
-
-        <!-- Paso 3 -->
-        <div *ngIf="currentStep === 3">
-          <h4>Paso 3: Subir Imágenes y Detalles Finales</h4>
-
-          <div class="file-upload-container">
-            <label for="file-upload" class="file-upload-button">
-              <i class="fa fa-cloud-upload"></i> Seleccionar Fotos del Producto
-            </label>
-            <input id="file-upload" type="file" style="display:none;" (change)="onFileSelected($event)" multiple>
-            <div class="file-upload-instructions">
-              Sube tu imagen en formato JPEG, PNG o WEBP con una resolución mínima de 5000 píxeles en ambos lados y un
-              peso máximo de 10 MB.
-            </div>
-          </div>
-
-          <div class="form-group row m-2">
-            <div class="col-md-7 offset-md-4 d-flex flex-wrap">
-              <div *ngFor="let foto of fotos; let i = index" class="position-relative m-3">
-                <img [src]="foto" alt="Foto {{i + 1}}" class="img-thumbnail" style="width: 60px; height: 60px;">
-                <span *ngIf="i === 0" class="badge badge-primary position-absolute"
-                  style="bottom: 0; left: 0;">Portada</span>
-                <button type="button" class="btn btn-danger btn-sm position-absolute p-0 eliminar-foto"
-                  (click)="removeFoto(i)">X</button>
-              </div>
-            </div>
-          </div>
-
-          <div *ngIf="isRopaOrZapatos" class="add-product-form">
-            <div formArrayName="variantes">
-              <div class="form-group row">
-                <div class="col-xl-3 col-sm-4 ">
-                  <label for="validationCustom01" class="mb-0">Nombre del Producto:</label>
-                </div>
-                <div class="col-xl-8 col-sm-7">
-                  <input class="form-control" id="validationCustom01" type="text"
-                    [formControl]="productoForm.controls['name']" required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-xl-3 col-sm-4 ">
-                  <label for="validationCustom01" class="mb-0">Descripción del Producto:</label>
-                </div>
-                <div class="col-xl-8 col-sm-7">
-                  <input class="form-control" id="validationCustom01" type="text"
-                    [formControl]="productoForm.controls['description']" required>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <div class="col-xl-3 col-sm-4 ">
-                  <label for="validationCustom01" class="mb-0">Precio del Producto:</label>
-                </div>
-                <div class="col-xl-8 col-sm-7">
-                  <input class="form-control" id="validationCustom01" type="number"
-                    [formControl]="productoForm.controls['price']" required>
-                </div>
-              </div>
-
-              <div class="col-xl-8 col-sm-7">
-                <app-color-picker (colorSelected)="onColorSelected($event)"></app-color-picker>
-              </div>
-
-              <div class="mb-3" *ngFor="let variante of variantes.controls; let i = index" [formGroupName]="i"
-                style="border: 1px solid #d2d6de;">
-                <div class="form-group row mt-2">
-                  <label class="col-xl-3 col-md-4">Talla:</label>
-                  <div class="col-xl-8 col-sm-7">
-                    <input class="form-control" formControlName="talla" type="text" required>
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <div class="col-xl-3 col-sm-4 ">
-                    <label for="validationCustom01" class="mb-0">Stock:</label>
-                  </div>
-                  <div class="col-xl-8 col-sm-7">
-                    <input class="form-control" id="validationCustom01" type="number" formControlName="stock" required
-                      [min]="1">
-                  </div>
-                </div>
-                <button type="button" class="btn btn-danger mb-2" (click)="removeVariante(i)"><i
-                    class="fa fa-trash-o"></i></button>
-              </div>
-
-              <button type="button" class="btn btn-secondary mb-3 mt-3" (click)="addVariante()">Agregar
-                Variante</button>
-            </div>
-          </div>
-
-          <div *ngIf="!isRopaOrZapatos" class="add-product-form">
-            <div class="form-group row">
-              <div class="col-xl-3 col-sm-4 ">
-                <label for="validationCustom01" class="mb-0">Nombre del Producto:</label>
-              </div>
-              <div class="col-xl-8 col-sm-7">
-                <input class="form-control" id="validationCustom01" type="text"
-                  [formControl]="productoForm.controls['name']" required>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-xl-3 col-sm-4 ">
-                <label for="validationCustom01" class="mb-0">Descripción del Producto:</label>
-              </div>
-              <div class="col-xl-8 col-sm-7">
-                <input class="form-control" id="validationCustom01" type="text"
-                  [formControl]="productoForm.controls['description']" required>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-xl-3 col-sm-4 ">
-                <label for="validationCustom01" class="mb-0">Precio del Producto:</label>
-              </div>
-              <div class="col-xl-8 col-sm-7">
-                <input class="form-control" id="validationCustom01" type="number"
-                  [formControl]="productoForm.controls['price']" required>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <div class="col-xl-3 col-sm-4 ">
-                <label for="validationCustom01" class="mb-0">Stock:</label>
-              </div>
-              <div class="col-xl-8 col-sm-7">
-                <input class="form-control" id="validationCustom01" type="number"
-                  [formControl]="productoForm.controls['stock']" required [min]="1">
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-between">
-            <button type="button" class="btn btn-secondary" (click)="goToPreviousStep()">Anterior</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
 </div>
 <!-- Container-fluid Ends-->

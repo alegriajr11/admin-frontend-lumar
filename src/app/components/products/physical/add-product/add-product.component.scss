@@ -46,13 +46,14 @@
     align-items: center;
 }
 
-.form-group.row.align-items-center .col-md-3,
-.form-group.row.align-items-center .col-md-6 {
-    display: flex;
-    align-items: center;
+span{
+    color: red;
 }
 
-.form-group.row.align-items-center .col-md-3 {
-    justify-content: flex-end;
+input.precio[type="number"]::-webkit-inner-spin-button,
+input.precio[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
+//Estilos a la etiqueta a para estetica boton

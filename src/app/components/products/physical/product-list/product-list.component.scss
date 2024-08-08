@@ -1,0 +1,10 @@
+.image-wrapper {
+    display: flex;
+    justify-content: center; /* Centra la imagen horizontalmente */
+    align-items: center; /* Centra la imagen verticalmente si se establece una altura */
+}
+
+.image-wrapper img {
+    max-width: 100%; /* Asegura que la imagen no desborde el contenedor */
+    height: auto;
+}

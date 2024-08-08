@@ -17,4 +17,9 @@ export class SubcategoriaService {
   public listaSubcategoria(): Observable<SubcategoriaDto[]>{
     return this.httpClient.get<SubcategoriaDto[]>(this.subcategoriaUrl)
   }
+  
+  //SOLICITUD LISTAR SUBCATEGORIAS POR ID DE CATEGORIA
+  public listaSubcategoriaByCategoria(cat_id: number): Observable<SubcategoriaDto[]>{
+    return this.httpClient.get<SubcategoriaDto[]>(this.subcategoriaUrl + 'categoria/' + cat_id)
+  }
 }

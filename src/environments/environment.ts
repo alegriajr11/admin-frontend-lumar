@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  apiBaseUrl: 'http://localhost:8080',
 
   //RUTA SECCION
   seccionUrl: 'http://localhost:8080/seccion/',
@@ -14,6 +15,8 @@ export const environment = {
   //RUTA SUBCATEGORIA
   subcategoriaUrl: 'http://localhost:8080/subcategoria/',
 
+  //RUTA PRODUCTO
+  productoURL: 'http://localhost:8080/producto/',
 
   //RUTA AUTENTICACIÓN
   authURL: 'http://localhost:8080/auth/',
@@ -31,6 +34,7 @@ export const environment = {
 
   //RUTA TIPO DE DESCUENTO
   tipo_descuento_URL: 'http://localhost:8080/tipo-descuento/'
+
 };
 
 /*
